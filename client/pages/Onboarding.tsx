@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Onboarding() {
