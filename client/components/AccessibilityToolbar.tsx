@@ -1,33 +1,33 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Switch } from '@/components/ui/switch';
-import { Badge } from '@/components/ui/badge';
-import { useAccessibility } from '@/context/AccessibilityContext';
-import { 
-  Settings, 
-  Moon, 
-  Sun, 
-  Eye, 
-  Type, 
-  Zap, 
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import { useAccessibility } from "@/context/AccessibilityContext";
+import {
+  Settings,
+  Moon,
+  Sun,
+  Eye,
+  Type,
+  Zap,
   RotateCcw,
   X,
   Accessibility,
   ChevronUp,
-  ChevronDown
-} from 'lucide-react';
+  ChevronDown,
+} from "lucide-react";
 
 export default function AccessibilityToolbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(true);
-  const { 
-    settings, 
-    toggleDarkMode, 
-    toggleHighContrast, 
-    toggleLargeText, 
-    toggleReduceMotion, 
-    resetSettings 
+  const {
+    settings,
+    toggleDarkMode,
+    toggleHighContrast,
+    toggleLargeText,
+    toggleReduceMotion,
+    resetSettings,
   } = useAccessibility();
 
   const activeSettingsCount = Object.values(settings).filter(Boolean).length;
@@ -39,9 +39,9 @@ export default function AccessibilityToolbar() {
         <Button
           onClick={() => setIsOpen(!isOpen)}
           className={`h-12 w-12 rounded-full shadow-lg transition-all duration-300 ${
-            isOpen 
-              ? 'bg-reddit-orange hover:bg-red-600' 
-              : 'bg-wireframe-text-primary hover:bg-wireframe-text-secondary'
+            isOpen
+              ? "bg-reddit-orange hover:bg-red-600"
+              : "bg-wireframe-text-primary hover:bg-wireframe-text-secondary"
           } text-white`}
           aria-label="Accessibility Settings"
         >
@@ -51,8 +51,8 @@ export default function AccessibilityToolbar() {
             <div className="relative">
               <Accessibility className="w-6 h-6" />
               {activeSettingsCount > 0 && (
-                <Badge 
-                  variant="secondary" 
+                <Badge
+                  variant="secondary"
                   className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-reddit-orange text-white text-xs"
                 >
                   {activeSettingsCount}
@@ -70,7 +70,9 @@ export default function AccessibilityToolbar() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
               <Settings className="w-5 h-5 text-wireframe-text-primary" />
-              <h3 className="font-semibold text-wireframe-text-primary">Accessibility</h3>
+              <h3 className="font-semibold text-wireframe-text-primary">
+                Accessibility
+              </h3>
             </div>
             <div className="flex items-center space-x-2">
               <button
@@ -190,22 +192,34 @@ export default function AccessibilityToolbar() {
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {settings.darkMode && (
-                      <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-800">
+                      <Badge
+                        variant="secondary"
+                        className="text-xs bg-blue-100 text-blue-800"
+                      >
                         Dark Mode
                       </Badge>
                     )}
                     {settings.highContrast && (
-                      <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-800">
+                      <Badge
+                        variant="secondary"
+                        className="text-xs bg-purple-100 text-purple-800"
+                      >
                         High Contrast
                       </Badge>
                     )}
                     {settings.largeText && (
-                      <Badge variant="secondary" className="text-xs bg-green-100 text-green-800">
+                      <Badge
+                        variant="secondary"
+                        className="text-xs bg-green-100 text-green-800"
+                      >
                         Large Text
                       </Badge>
                     )}
                     {settings.reduceMotion && (
-                      <Badge variant="secondary" className="text-xs bg-orange-100 text-orange-800">
+                      <Badge
+                        variant="secondary"
+                        className="text-xs bg-orange-100 text-orange-800"
+                      >
                         Reduce Motion
                       </Badge>
                     )}
@@ -215,8 +229,9 @@ export default function AccessibilityToolbar() {
 
               {/* Information */}
               <div className="text-xs text-wireframe-text-muted leading-relaxed p-3 bg-wireframe-surface-secondary rounded-lg">
-                <strong>Tip:</strong> These settings are automatically saved and will persist across sessions. 
-                Some features respect your system preferences by default.
+                <strong>Tip:</strong> These settings are automatically saved and
+                will persist across sessions. Some features respect your system
+                preferences by default.
               </div>
             </div>
           )}
@@ -225,13 +240,22 @@ export default function AccessibilityToolbar() {
           {isMinimized && activeSettingsCount > 0 && (
             <div className="flex items-center justify-between">
               <div className="text-sm text-wireframe-text-muted">
-                {activeSettingsCount} feature{activeSettingsCount !== 1 ? 's' : ''} active
+                {activeSettingsCount} feature
+                {activeSettingsCount !== 1 ? "s" : ""} active
               </div>
               <div className="flex space-x-1">
-                {settings.darkMode && <Moon className="w-4 h-4 text-blue-600" />}
-                {settings.highContrast && <Eye className="w-4 h-4 text-purple-600" />}
-                {settings.largeText && <Type className="w-4 h-4 text-green-600" />}
-                {settings.reduceMotion && <Zap className="w-4 h-4 text-orange-600" />}
+                {settings.darkMode && (
+                  <Moon className="w-4 h-4 text-blue-600" />
+                )}
+                {settings.highContrast && (
+                  <Eye className="w-4 h-4 text-purple-600" />
+                )}
+                {settings.largeText && (
+                  <Type className="w-4 h-4 text-green-600" />
+                )}
+                {settings.reduceMotion && (
+                  <Zap className="w-4 h-4 text-orange-600" />
+                )}
               </div>
             </div>
           )}

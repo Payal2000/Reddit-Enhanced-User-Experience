@@ -27,24 +27,56 @@ const interests = [
 
 const personalizedRecommendations = {
   tech: [
-    { name: "r/programming", members: "3.8M", reason: "Based on your interest in tech" },
-    { name: "r/MachineLearning", members: "2.1M", reason: "Popular with tech enthusiasts" },
+    {
+      name: "r/programming",
+      members: "3.8M",
+      reason: "Based on your interest in tech",
+    },
+    {
+      name: "r/MachineLearning",
+      members: "2.1M",
+      reason: "Popular with tech enthusiasts",
+    },
     { name: "r/webdev", members: "1.2M", reason: "Trending in tech community" },
   ],
   ai: [
-    { name: "r/artificial", members: "856K", reason: "Perfect match for AI interest" },
-    { name: "r/ChatGPT", members: "425K", reason: "Highly active AI community" },
-    { name: "r/deeplearning", members: "312K", reason: "Advanced AI discussions" },
+    {
+      name: "r/artificial",
+      members: "856K",
+      reason: "Perfect match for AI interest",
+    },
+    {
+      name: "r/ChatGPT",
+      members: "425K",
+      reason: "Highly active AI community",
+    },
+    {
+      name: "r/deeplearning",
+      members: "312K",
+      reason: "Advanced AI discussions",
+    },
   ],
   gaming: [
-    { name: "r/gaming", members: "34.1M", reason: "The largest gaming community" },
+    {
+      name: "r/gaming",
+      members: "34.1M",
+      reason: "The largest gaming community",
+    },
     { name: "r/pcmasterrace", members: "7.2M", reason: "Popular with gamers" },
     { name: "r/IndieGaming", members: "1.8M", reason: "Discover new games" },
   ],
   fitness: [
     { name: "r/fitness", members: "9.8M", reason: "Main fitness community" },
-    { name: "r/bodyweightfitness", members: "2.1M", reason: "Home workout focused" },
-    { name: "r/progresspics", members: "1.5M", reason: "Motivational transformations" },
+    {
+      name: "r/bodyweightfitness",
+      members: "2.1M",
+      reason: "Home workout focused",
+    },
+    {
+      name: "r/progresspics",
+      members: "1.5M",
+      reason: "Motivational transformations",
+    },
   ],
   science: [
     { name: "r/science", members: "28.9M", reason: "Top science discussions" },
@@ -53,8 +85,16 @@ const personalizedRecommendations = {
   ],
   movies: [
     { name: "r/movies", members: "31.2M", reason: "Main movie community" },
-    { name: "r/MovieSuggestions", members: "2.8M", reason: "Discover new films" },
-    { name: "r/criterion", members: "456K", reason: "Curated film discussions" },
+    {
+      name: "r/MovieSuggestions",
+      members: "2.8M",
+      reason: "Discover new films",
+    },
+    {
+      name: "r/criterion",
+      members: "456K",
+      reason: "Curated film discussions",
+    },
   ],
 } as const;
 
@@ -68,31 +108,42 @@ export default function InterestSelection() {
       const updated = prev.includes(interestId)
         ? prev.filter((id) => id !== interestId)
         : [...prev, interestId];
-      
+
       // Generate AI recommendations based on selections
       if (updated.length >= 2) {
         generateAIRecommendations(updated);
       } else {
         setShowRecommendations(false);
       }
-      
+
       return updated;
     });
   };
 
   const generateAIRecommendations = (interests: string[]) => {
     const recommendations: any[] = [];
-    interests.forEach(interest => {
-      if (personalizedRecommendations[interest as keyof typeof personalizedRecommendations]) {
-        recommendations.push(...personalizedRecommendations[interest as keyof typeof personalizedRecommendations]);
+    interests.forEach((interest) => {
+      if (
+        personalizedRecommendations[
+          interest as keyof typeof personalizedRecommendations
+        ]
+      ) {
+        recommendations.push(
+          ...personalizedRecommendations[
+            interest as keyof typeof personalizedRecommendations
+          ],
+        );
       }
     });
-    
+
     // Remove duplicates and limit to top 6
     const uniqueRecommendations = recommendations
-      .filter((rec, index, self) => index === self.findIndex(r => r.name === rec.name))
+      .filter(
+        (rec, index, self) =>
+          index === self.findIndex((r) => r.name === rec.name),
+      )
       .slice(0, 6);
-    
+
     setAiRecommendations(uniqueRecommendations);
     setShowRecommendations(true);
   };
@@ -180,7 +231,7 @@ export default function InterestSelection() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {aiRecommendations.map((rec, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="p-4 rounded-lg border border-wireframe-border bg-wireframe-surface-secondary hover:bg-wireframe-surface-hover transition-all duration-300 group cursor-pointer hover:shadow-md hover:scale-105"
                   >
@@ -195,7 +246,11 @@ export default function InterestSelection() {
                           <h4 className="font-medium text-wireframe-text-primary group-hover:text-reddit-orange transition-colors">
                             {rec.name}
                           </h4>
-                          <Button size="sm" variant="outline" className="text-xs hover:bg-reddit-orange hover:text-white transition-colors">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-xs hover:bg-reddit-orange hover:text-white transition-colors"
+                          >
                             Join
                           </Button>
                         </div>
@@ -241,8 +296,12 @@ export default function InterestSelection() {
                 </span>
               </div>
               <p className="text-xs text-wireframe-text-secondary leading-relaxed">
-                Based on your selections, you'll see {selectedInterests.length >= 3 ? 'highly personalized' : 'tailored'} content 
-                and discover communities that match your interests perfectly.
+                Based on your selections, you'll see{" "}
+                {selectedInterests.length >= 3
+                  ? "highly personalized"
+                  : "tailored"}{" "}
+                content and discover communities that match your interests
+                perfectly.
               </p>
             </div>
           )}

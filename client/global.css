@@ -257,7 +257,7 @@
   }
 
   .interactive-element::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
@@ -316,7 +316,8 @@
   }
 
   @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0px);
     }
     50% {
@@ -336,7 +337,8 @@
   }
 
   @keyframes breathe {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
     }
     50% {

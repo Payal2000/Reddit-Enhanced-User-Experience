@@ -5,15 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
-import { 
-  Search, 
-  Filter, 
-  TrendingUp, 
-  Plus, 
-  ArrowUp, 
-  ArrowDown, 
-  MessageCircle, 
-  Share, 
+import {
+  Search,
+  Filter,
+  TrendingUp,
+  Plus,
+  ArrowUp,
+  ArrowDown,
+  MessageCircle,
+  Share,
   Bookmark,
   Home as HomeIcon,
   Bell,
@@ -28,7 +28,7 @@ import {
   ChevronUp,
   Users,
   Clock,
-  Target
+  Target,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -41,12 +41,13 @@ const posts = [
     authorKarma: "125K",
     time: "2h ago",
     title: "New AI breakthrough shows promise for medical diagnosis",
-    content: "AI-generated summary: Researchers have developed a new machine learning model that can diagnose rare diseases with 95% accuracy, potentially revolutionizing medical care in underserved areas.",
+    content:
+      "AI-generated summary: Researchers have developed a new machine learning model that can diagnose rare diseases with 95% accuracy, potentially revolutionizing medical care in underserved areas.",
     aiInsights: {
       confidence: 92,
       keyTopics: ["Machine Learning", "Healthcare", "Medical Diagnosis"],
       sentiment: "positive",
-      readTime: "3 min read"
+      readTime: "3 min read",
     },
     upvotes: 2847,
     comments: 234,
@@ -61,12 +62,13 @@ const posts = [
     authorKarma: "89K",
     time: "4h ago",
     title: "Why TypeScript is becoming essential for large-scale applications",
-    content: "AI-generated summary: This post discusses the benefits of TypeScript in enterprise environments, including better code maintainability, fewer runtime errors, and improved developer experience.",
+    content:
+      "AI-generated summary: This post discusses the benefits of TypeScript in enterprise environments, including better code maintainability, fewer runtime errors, and improved developer experience.",
     aiInsights: {
       confidence: 88,
       keyTopics: ["TypeScript", "Enterprise Development", "Code Quality"],
       sentiment: "informative",
-      readTime: "5 min read"
+      readTime: "5 min read",
     },
     upvotes: 1523,
     comments: 189,
@@ -81,12 +83,13 @@ const posts = [
     authorKarma: "67K",
     time: "6h ago",
     title: "Climate change study reveals unexpected ecosystem adaptations",
-    content: "AI-generated summary: New research shows that certain plant species are adapting to climate change faster than predicted, offering hope for ecosystem resilience.",
+    content:
+      "AI-generated summary: New research shows that certain plant species are adapting to climate change faster than predicted, offering hope for ecosystem resilience.",
     aiInsights: {
       confidence: 94,
       keyTopics: ["Climate Change", "Ecology", "Environmental Science"],
       sentiment: "hopeful",
-      readTime: "4 min read"
+      readTime: "4 min read",
     },
     upvotes: 4521,
     comments: 567,
@@ -112,9 +115,24 @@ const trendingTopics = [
 ];
 
 const relatedCommunities = [
-  { name: "r/MachineLearning", members: "2.1M", description: "Machine learning discussions and research", growth: "+12%" },
-  { name: "r/ArtificialIntelligence", members: "856K", description: "AI news and discussions", growth: "+8%" },
-  { name: "r/DataScience", members: "1.2M", description: "Data science community", growth: "+15%" },
+  {
+    name: "r/MachineLearning",
+    members: "2.1M",
+    description: "Machine learning discussions and research",
+    growth: "+12%",
+  },
+  {
+    name: "r/ArtificialIntelligence",
+    members: "856K",
+    description: "AI news and discussions",
+    growth: "+8%",
+  },
+  {
+    name: "r/DataScience",
+    members: "1.2M",
+    description: "Data science community",
+    growth: "+15%",
+  },
 ];
 
 const topicClusters = [
@@ -125,11 +143,11 @@ const topicClusters = [
     trend: "trending",
   },
   {
-    name: "Science & Research", 
+    name: "Science & Research",
     posts: 1,
     isCollapsed: false,
     trend: "popular",
-  }
+  },
 ];
 
 export default function Home() {
@@ -139,36 +157,42 @@ export default function Home() {
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
+      return (num / 1000000).toFixed(1) + "M";
     }
     if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'k';
+      return (num / 1000).toFixed(1) + "k";
     }
     return num.toString();
   };
 
   const toggleCluster = (clusterName: string) => {
-    setCollapsedClusters(prev => 
-      prev.includes(clusterName) 
-        ? prev.filter(c => c !== clusterName)
-        : [...prev, clusterName]
+    setCollapsedClusters((prev) =>
+      prev.includes(clusterName)
+        ? prev.filter((c) => c !== clusterName)
+        : [...prev, clusterName],
     );
   };
 
   const getBadgeColor = (badge: string) => {
     switch (badge) {
-      case "Gold": return "bg-yellow-500";
-      case "Platinum": return "bg-gray-400";
-      case "Diamond": return "bg-blue-500";
-      default: return "bg-reddit-orange";
+      case "Gold":
+        return "bg-yellow-500";
+      case "Platinum":
+        return "bg-gray-400";
+      case "Diamond":
+        return "bg-blue-500";
+      default:
+        return "bg-reddit-orange";
     }
   };
 
   const renderPostsByCluster = () => {
-    return topicClusters.map(cluster => {
-      const clusterPosts = posts.filter(post => post.cluster === cluster.name);
+    return topicClusters.map((cluster) => {
+      const clusterPosts = posts.filter(
+        (post) => post.cluster === cluster.name,
+      );
       const isCollapsed = collapsedClusters.includes(cluster.name);
-      
+
       if (clusterPosts.length === 0) return null;
 
       return (
@@ -176,7 +200,7 @@ export default function Home() {
           {/* Cluster Header */}
           <div className="flex items-center justify-between mb-4 p-3 bg-wireframe-surface-secondary rounded-lg border border-wireframe-border">
             <div className="flex items-center space-x-3">
-              <button 
+              <button
                 onClick={() => toggleCluster(cluster.name)}
                 className="p-1 hover:bg-wireframe-surface-hover rounded transition-colors"
               >
@@ -186,7 +210,9 @@ export default function Home() {
                   <ChevronDown className="w-4 h-4 text-wireframe-text-muted" />
                 )}
               </button>
-              <h3 className="font-semibold text-wireframe-text-primary">{cluster.name}</h3>
+              <h3 className="font-semibold text-wireframe-text-primary">
+                {cluster.name}
+              </h3>
               <Badge variant="secondary" className="text-xs">
                 {cluster.posts} posts
               </Badge>
@@ -206,17 +232,28 @@ export default function Home() {
           {!isCollapsed && (
             <div className="space-y-4 ml-4">
               {clusterPosts.map((post) => (
-                <Card key={post.id} className="border border-wireframe-border bg-wireframe-surface-primary hover:shadow-lg transition-all duration-300">
+                <Card
+                  key={post.id}
+                  className="border border-wireframe-border bg-wireframe-surface-primary hover:shadow-lg transition-all duration-300"
+                >
                   <div className="flex">
                     {/* Vote Section */}
                     <div className="flex flex-col items-center p-3 bg-wireframe-surface-secondary">
-                      <Button variant="ghost" size="icon" className="h-8 w-8 mb-1 hover:bg-green-100 hover:text-green-600 transition-colors">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 mb-1 hover:bg-green-100 hover:text-green-600 transition-colors"
+                      >
                         <ArrowUp className="w-4 h-4" />
                       </Button>
                       <span className="text-sm font-medium text-wireframe-text-primary">
                         {formatNumber(post.upvotes)}
                       </span>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 mt-1 hover:bg-red-100 hover:text-red-600 transition-colors">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 mt-1 hover:bg-red-100 hover:text-red-600 transition-colors"
+                      >
                         <ArrowDown className="w-4 h-4" />
                       </Button>
                     </div>
@@ -225,17 +262,23 @@ export default function Home() {
                     <div className="flex-1 p-4">
                       {/* Post Header */}
                       <div className="flex items-center text-sm text-wireframe-text-muted mb-2">
-                        <Link to={`/r/${post.subreddit.slice(2)}`} className="font-medium hover:underline hover:text-reddit-orange transition-colors">
+                        <Link
+                          to={`/r/${post.subreddit.slice(2)}`}
+                          className="font-medium hover:underline hover:text-reddit-orange transition-colors"
+                        >
                           {post.subreddit}
                         </Link>
                         <span className="mx-1">•</span>
                         <span>Posted by</span>
-                        <Link to={`/u/${post.author.slice(2)}`} className="ml-1 hover:underline flex items-center space-x-1">
+                        <Link
+                          to={`/u/${post.author.slice(2)}`}
+                          className="ml-1 hover:underline flex items-center space-x-1"
+                        >
                           <span>{post.author}</span>
                           {/* Author Badges */}
                           <div className="flex items-center space-x-1 ml-2">
                             {post.authorBadges.map((badge, idx) => (
-                              <div 
+                              <div
                                 key={idx}
                                 className={`w-4 h-4 rounded-full flex items-center justify-center ${getBadgeColor(badge)}`}
                                 title={badge}
@@ -243,7 +286,9 @@ export default function Home() {
                                 <Award className="w-2 h-2 text-white" />
                               </div>
                             ))}
-                            <span className="text-xs text-wireframe-text-muted">({post.authorKarma})</span>
+                            <span className="text-xs text-wireframe-text-muted">
+                              ({post.authorKarma})
+                            </span>
                           </div>
                         </Link>
                         <span className="mx-1">•</span>
@@ -266,7 +311,10 @@ export default function Home() {
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center space-x-2">
                             <Sparkles className="w-4 h-4 text-reddit-orange" />
-                            <Badge variant="secondary" className="text-xs bg-reddit-orange text-white">
+                            <Badge
+                              variant="secondary"
+                              className="text-xs bg-reddit-orange text-white"
+                            >
                               AI Summary
                             </Badge>
                             <div className="flex items-center space-x-1">
@@ -281,28 +329,41 @@ export default function Home() {
                             {post.aiInsights.readTime}
                           </div>
                         </div>
-                        
+
                         <p className="text-sm text-wireframe-text-secondary leading-relaxed mb-3">
                           {post.content}
                         </p>
-                        
+
                         {/* AI Insights */}
                         <div className="flex flex-wrap gap-2 mb-2">
                           {post.aiInsights.keyTopics.map((topic, idx) => (
-                            <Badge key={idx} variant="outline" className="text-xs">
+                            <Badge
+                              key={idx}
+                              variant="outline"
+                              className="text-xs"
+                            >
                               {topic}
                             </Badge>
                           ))}
                         </div>
-                        
+
                         <div className="flex items-center justify-between text-xs">
-                          <span className={`px-2 py-1 rounded text-white ${
-                            post.aiInsights.sentiment === 'positive' ? 'bg-green-500' : 
-                            post.aiInsights.sentiment === 'hopeful' ? 'bg-blue-500' : 'bg-gray-500'
-                          }`}>
+                          <span
+                            className={`px-2 py-1 rounded text-white ${
+                              post.aiInsights.sentiment === "positive"
+                                ? "bg-green-500"
+                                : post.aiInsights.sentiment === "hopeful"
+                                  ? "bg-blue-500"
+                                  : "bg-gray-500"
+                            }`}
+                          >
                             {post.aiInsights.sentiment}
                           </span>
-                          <Button variant="ghost" size="sm" className="text-xs h-6">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-xs h-6"
+                          >
                             Read Full Article
                           </Button>
                         </div>
@@ -310,15 +371,27 @@ export default function Home() {
 
                       {/* Post Actions */}
                       <div className="flex items-center space-x-4 text-wireframe-text-muted">
-                        <Button variant="ghost" size="sm" className="h-8 px-2 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 px-2 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                        >
                           <MessageCircle className="w-4 h-4 mr-1" />
                           {formatNumber(post.comments)} Comments
                         </Button>
-                        <Button variant="ghost" size="sm" className="h-8 px-2 hover:bg-green-50 hover:text-green-600 transition-colors">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 px-2 hover:bg-green-50 hover:text-green-600 transition-colors"
+                        >
                           <Share className="w-4 h-4 mr-1" />
                           Share
                         </Button>
-                        <Button variant="ghost" size="sm" className="h-8 px-2 hover:bg-yellow-50 hover:text-yellow-600 transition-colors">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 px-2 hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
+                        >
                           <Bookmark className="w-4 h-4 mr-1" />
                           Save
                         </Button>
@@ -342,17 +415,22 @@ export default function Home() {
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
             <div className="flex items-center space-x-4">
-              <button 
+              <button
                 className="md:hidden p-2 hover:bg-wireframe-surface-hover rounded-md transition-colors"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 <Menu className="w-5 h-5" />
               </button>
-              <Link to="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+              <Link
+                to="/"
+                className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+              >
                 <div className="w-8 h-8 rounded-full bg-reddit-orange flex items-center justify-center">
                   <span className="text-white font-bold text-sm">r</span>
                 </div>
-                <span className="font-bold text-lg text-wireframe-text-primary hidden sm:block">reddit</span>
+                <span className="font-bold text-lg text-wireframe-text-primary hidden sm:block">
+                  reddit
+                </span>
               </Link>
             </div>
 
@@ -360,13 +438,13 @@ export default function Home() {
             <div className="flex-1 max-w-2xl mx-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-wireframe-text-muted" />
-                <Input 
-                  placeholder="Search Reddit" 
+                <Input
+                  placeholder="Search Reddit"
                   className="pl-10 pr-12 bg-wireframe-surface-secondary border-wireframe-border hover:border-reddit-orange focus:border-reddit-orange transition-colors"
                 />
-                <Button 
-                  size="sm" 
-                  variant="ghost" 
+                <Button
+                  size="sm"
+                  variant="ghost"
                   className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 hover:bg-reddit-orange hover:text-white transition-colors"
                   asChild
                 >
@@ -379,14 +457,26 @@ export default function Home() {
 
             {/* User Actions */}
             <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="sm" className="hidden sm:flex hover:bg-reddit-orange hover:text-white transition-colors">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="hidden sm:flex hover:bg-reddit-orange hover:text-white transition-colors"
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Create
               </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-wireframe-surface-hover transition-colors">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-wireframe-surface-hover transition-colors"
+              >
                 <Bell className="w-5 h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-wireframe-surface-hover transition-colors">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-wireframe-surface-hover transition-colors"
+              >
                 <User className="w-5 h-5" />
               </Button>
             </div>
@@ -396,7 +486,9 @@ export default function Home() {
 
       <div className="max-w-7xl mx-auto flex">
         {/* Left Sidebar */}
-        <aside className={`w-64 border-r border-wireframe-border bg-wireframe-surface-primary p-4 fixed left-0 top-14 h-full z-40 transform transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:top-0 md:transform-none md:block`}>
+        <aside
+          className={`w-64 border-r border-wireframe-border bg-wireframe-surface-primary p-4 fixed left-0 top-14 h-full z-40 transform transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:relative md:top-0 md:transform-none md:block`}
+        >
           {/* Pinned Subreddits */}
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-wireframe-text-secondary mb-3 uppercase tracking-wide">
@@ -404,12 +496,17 @@ export default function Home() {
             </h3>
             <div className="space-y-2">
               {pinnedSubreddits.map((subreddit) => (
-                <div key={subreddit.name} className="p-2 rounded-md hover:bg-wireframe-surface-hover transition-colors">
+                <div
+                  key={subreddit.name}
+                  className="p-2 rounded-md hover:bg-wireframe-surface-hover transition-colors"
+                >
                   <Link
                     to={`/r/${subreddit.name.slice(2)}`}
                     className="flex items-center justify-between text-wireframe-text-primary mb-2"
                   >
-                    <span className="text-sm font-medium">{subreddit.name}</span>
+                    <span className="text-sm font-medium">
+                      {subreddit.name}
+                    </span>
                     <Badge variant="outline" className="text-xs">
                       {subreddit.level}
                     </Badge>
@@ -460,10 +557,27 @@ export default function Home() {
                 Personalized Home Feed
               </h1>
               <div className="flex space-x-2">
-                <Badge className="bg-wireframe-text-primary text-white">Hot</Badge>
-                <Badge variant="outline" className="hover:bg-wireframe-surface-hover transition-colors cursor-pointer">New</Badge>
-                <Badge variant="outline" className="hover:bg-wireframe-surface-hover transition-colors cursor-pointer">Top</Badge>
-                <Badge variant="outline" className="hover:bg-wireframe-surface-hover transition-colors cursor-pointer">Rising</Badge>
+                <Badge className="bg-wireframe-text-primary text-white">
+                  Hot
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="hover:bg-wireframe-surface-hover transition-colors cursor-pointer"
+                >
+                  New
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="hover:bg-wireframe-surface-hover transition-colors cursor-pointer"
+                >
+                  Top
+                </Badge>
+                <Badge
+                  variant="outline"
+                  className="hover:bg-wireframe-surface-hover transition-colors cursor-pointer"
+                >
+                  Rising
+                </Badge>
               </div>
             </div>
 
@@ -482,48 +596,75 @@ export default function Home() {
                 You might also like
               </h3>
               <div className="flex space-x-1">
-                <button 
-                  onClick={() => setCurrentCarouselIndex(Math.max(0, currentCarouselIndex - 1))}
+                <button
+                  onClick={() =>
+                    setCurrentCarouselIndex(
+                      Math.max(0, currentCarouselIndex - 1),
+                    )
+                  }
                   className="p-1 hover:bg-wireframe-surface-hover rounded transition-colors"
                   disabled={currentCarouselIndex === 0}
                 >
                   <ChevronUp className="w-4 h-4" />
                 </button>
-                <button 
-                  onClick={() => setCurrentCarouselIndex(Math.min(relatedCommunities.length - 1, currentCarouselIndex + 1))}
+                <button
+                  onClick={() =>
+                    setCurrentCarouselIndex(
+                      Math.min(
+                        relatedCommunities.length - 1,
+                        currentCarouselIndex + 1,
+                      ),
+                    )
+                  }
                   className="p-1 hover:bg-wireframe-surface-hover rounded transition-colors"
-                  disabled={currentCarouselIndex >= relatedCommunities.length - 1}
+                  disabled={
+                    currentCarouselIndex >= relatedCommunities.length - 1
+                  }
                 >
                   <ChevronDown className="w-4 h-4" />
                 </button>
               </div>
             </div>
             <div className="space-y-3">
-              {relatedCommunities.slice(currentCarouselIndex, currentCarouselIndex + 2).map((community) => (
-                <div key={community.name} className="flex items-start justify-between hover:bg-wireframe-surface-hover p-2 rounded-lg transition-colors">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <Link 
-                        to={`/r/${community.name.slice(2)}`}
-                        className="font-medium text-wireframe-text-primary hover:underline"
-                      >
-                        {community.name}
-                      </Link>
-                      <Badge variant="secondary" className="text-xs text-green-600">
-                        {community.growth}
-                      </Badge>
+              {relatedCommunities
+                .slice(currentCarouselIndex, currentCarouselIndex + 2)
+                .map((community) => (
+                  <div
+                    key={community.name}
+                    className="flex items-start justify-between hover:bg-wireframe-surface-hover p-2 rounded-lg transition-colors"
+                  >
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-1">
+                        <Link
+                          to={`/r/${community.name.slice(2)}`}
+                          className="font-medium text-wireframe-text-primary hover:underline"
+                        >
+                          {community.name}
+                        </Link>
+                        <Badge
+                          variant="secondary"
+                          className="text-xs text-green-600"
+                        >
+                          {community.growth}
+                        </Badge>
+                      </div>
+                      <p className="text-xs text-wireframe-text-muted mb-1">
+                        {community.description}
+                      </p>
+                      <div className="flex items-center text-xs text-wireframe-text-muted">
+                        <Users className="w-3 h-3 mr-1" />
+                        {community.members} members
+                      </div>
                     </div>
-                    <p className="text-xs text-wireframe-text-muted mb-1">{community.description}</p>
-                    <div className="flex items-center text-xs text-wireframe-text-muted">
-                      <Users className="w-3 h-3 mr-1" />
-                      {community.members} members
-                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="ml-2 hover:bg-reddit-orange hover:text-white transition-colors"
+                    >
+                      Join
+                    </Button>
                   </div>
-                  <Button size="sm" variant="outline" className="ml-2 hover:bg-reddit-orange hover:text-white transition-colors">
-                    Join
-                  </Button>
-                </div>
-              ))}
+                ))}
             </div>
           </Card>
         </aside>
@@ -532,23 +673,38 @@ export default function Home() {
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-wireframe-surface-primary border-t border-wireframe-border shadow-lg">
         <div className="flex items-center justify-around h-16">
-          <Link to="/home" className="flex flex-col items-center p-2 text-reddit-orange">
+          <Link
+            to="/home"
+            className="flex flex-col items-center p-2 text-reddit-orange"
+          >
             <HomeIcon className="w-5 h-5" />
             <span className="text-xs mt-1">Home</span>
           </Link>
-          <Link to="/search" className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors">
+          <Link
+            to="/search"
+            className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors"
+          >
             <Search className="w-5 h-5" />
             <span className="text-xs mt-1">Search</span>
           </Link>
-          <Link to="/create" className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors">
+          <Link
+            to="/create"
+            className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors"
+          >
             <Plus className="w-5 h-5" />
             <span className="text-xs mt-1">Create</span>
           </Link>
-          <Link to="/notifications" className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors">
+          <Link
+            to="/notifications"
+            className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors"
+          >
             <Bell className="w-5 h-5" />
             <span className="text-xs mt-1">Notifications</span>
           </Link>
-          <Link to="/profile" className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors">
+          <Link
+            to="/profile"
+            className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors"
+          >
             <User className="w-5 h-5" />
             <span className="text-xs mt-1">Profile</span>
           </Link>
@@ -557,7 +713,7 @@ export default function Home() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />

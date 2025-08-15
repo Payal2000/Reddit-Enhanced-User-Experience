@@ -151,7 +151,7 @@ export default {
             transform: "translateY(-2px)",
           },
         },
-        "wiggle": {
+        wiggle: {
           "0%, 100%": {
             transform: "rotate(0deg)",
           },
@@ -162,7 +162,7 @@ export default {
             transform: "rotate(1deg)",
           },
         },
-        "glow": {
+        glow: {
           "0%, 100%": {
             boxShadow: "0 0 5px rgba(255, 69, 0, 0.5)",
           },
@@ -180,8 +180,8 @@ export default {
         "zoom-in": "zoom-in 0.2s ease-out",
         "pulse-slow": "pulse-slow 2s infinite",
         "bounce-gentle": "bounce-gentle 1s infinite",
-        "wiggle": "wiggle 0.5s ease-in-out",
-        "glow": "glow 2s infinite",
+        wiggle: "wiggle 0.5s ease-in-out",
+        glow: "glow 2s infinite",
       },
     },
   },

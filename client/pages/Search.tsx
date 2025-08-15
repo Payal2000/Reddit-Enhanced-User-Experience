@@ -4,15 +4,21 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Search as SearchIcon, 
-  Filter, 
-  ChevronLeft, 
-  ArrowUp, 
-  MessageCircle, 
-  Users, 
+import {
+  Search as SearchIcon,
+  Filter,
+  ChevronLeft,
+  ArrowUp,
+  MessageCircle,
+  Users,
   User,
   Calendar,
   TrendingUp,
@@ -22,7 +28,7 @@ import {
   AlertCircle,
   Clock,
   Hash,
-  Award
+  Award,
 } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 
@@ -40,9 +46,9 @@ const searchSuggestions = [
 const typoCorrections = {
   "artifical intelligence": "artificial intelligence",
   "machien learning": "machine learning",
-  "programing": "programming",
-  "envorinment": "environment",
-  "techonology": "technology",
+  programing: "programming",
+  envorinment: "environment",
+  techonology: "technology",
 };
 
 const searchResults = {
@@ -54,7 +60,8 @@ const searchResults = {
       authorBadges: ["Expert Contributor"],
       time: "2h ago",
       title: "AI breakthrough in medical diagnosis shows 95% accuracy",
-      snippet: "Researchers have developed a new machine learning model that can diagnose rare diseases with unprecedented accuracy. The system uses deep learning to analyze medical images and patient data...",
+      snippet:
+        "Researchers have developed a new machine learning model that can diagnose rare diseases with unprecedented accuracy. The system uses deep learning to analyze medical images and patient data...",
       upvotes: 2847,
       comments: 234,
       relevanceScore: 95,
@@ -66,8 +73,10 @@ const searchResults = {
       author: "u/researcher_mike",
       authorBadges: ["Verified Researcher"],
       time: "5h ago",
-      title: "New AI algorithm predicts protein structures with remarkable precision",
-      snippet: "Scientists at DeepMind have created an AI system that can predict how proteins fold, solving a 50-year-old problem in biology and opening new avenues for drug discovery...",
+      title:
+        "New AI algorithm predicts protein structures with remarkable precision",
+      snippet:
+        "Scientists at DeepMind have created an AI system that can predict how proteins fold, solving a 50-year-old problem in biology and opening new avenues for drug discovery...",
       upvotes: 4521,
       comments: 567,
       relevanceScore: 92,
@@ -80,7 +89,8 @@ const searchResults = {
       authorBadges: ["ML Expert"],
       time: "1d ago",
       title: "GPT-4 vs Claude: A comprehensive comparison of AI capabilities",
-      snippet: "This detailed analysis compares the latest language models across various benchmarks and real-world applications, examining their strengths and limitations...",
+      snippet:
+        "This detailed analysis compares the latest language models across various benchmarks and real-world applications, examining their strengths and limitations...",
       upvotes: 1892,
       comments: 156,
       relevanceScore: 88,
@@ -91,7 +101,8 @@ const searchResults = {
     {
       name: "r/ArtificialIntelligence",
       members: "856K",
-      description: "A subreddit dedicated to discussing artificial intelligence, machine learning, and related technologies.",
+      description:
+        "A subreddit dedicated to discussing artificial intelligence, machine learning, and related technologies.",
       joined: false,
       growth: "+12%",
       relevanceScore: 98,
@@ -99,7 +110,8 @@ const searchResults = {
     {
       name: "r/MachineLearning",
       members: "2.1M",
-      description: "Machine learning research papers, implementations, and discussions.",
+      description:
+        "Machine learning research papers, implementations, and discussions.",
       joined: true,
       growth: "+8%",
       relevanceScore: 95,
@@ -107,7 +119,8 @@ const searchResults = {
     {
       name: "r/deeplearning",
       members: "425K",
-      description: "Deep learning news, papers, and tutorials for researchers and practitioners.",
+      description:
+        "Deep learning news, papers, and tutorials for researchers and practitioners.",
       joined: false,
       growth: "+15%",
       relevanceScore: 90,
@@ -138,7 +151,7 @@ const searchResults = {
       avatar: null,
       relevanceScore: 82,
     },
-  ]
+  ],
 };
 
 const relatedQueries = [
@@ -152,7 +165,7 @@ const relatedQueries = [
 
 export default function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialQuery = searchParams.get('q') || '';
+  const initialQuery = searchParams.get("q") || "";
   const [query, setQuery] = useState(initialQuery);
   const [originalQuery, setOriginalQuery] = useState(initialQuery);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -160,7 +173,7 @@ export default function Search() {
     time: "all",
     type: "all",
     engagement: "all",
-    sort: "relevance"
+    sort: "relevance",
   });
   const [activeTab, setActiveTab] = useState("posts");
   const [hasTypoCorrection, setHasTypoCorrection] = useState(false);
@@ -180,25 +193,25 @@ export default function Search() {
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
+      return (num / 1000000).toFixed(1) + "M";
     }
     if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K';
+      return (num / 1000).toFixed(1) + "K";
     }
     return num.toString();
   };
 
   const handleFilterChange = (filterType: string, value: string) => {
-    setActiveFilters(prev => ({
+    setActiveFilters((prev) => ({
       ...prev,
-      [filterType]: value
+      [filterType]: value,
     }));
   };
 
   const removeFilter = (filterType: string) => {
-    setActiveFilters(prev => ({
+    setActiveFilters((prev) => ({
       ...prev,
-      [filterType]: filterType === "sort" ? "relevance" : "all"
+      [filterType]: filterType === "sort" ? "relevance" : "all",
     }));
   };
 
@@ -207,7 +220,7 @@ export default function Search() {
     setOriginalQuery(suggestion);
     setShowSuggestions(false);
     const params = new URLSearchParams();
-    params.set('q', suggestion);
+    params.set("q", suggestion);
     setSearchParams(params);
   };
 
@@ -216,14 +229,17 @@ export default function Search() {
     setOriginalQuery(correctedQuery);
     setHasTypoCorrection(false);
     const params = new URLSearchParams();
-    params.set('q', correctedQuery);
+    params.set("q", correctedQuery);
     setSearchParams(params);
   };
 
   const getActiveFilterChips = () => {
     const chips = [];
     Object.entries(activeFilters).forEach(([key, value]) => {
-      if ((key === "sort" && value !== "relevance") || (key !== "sort" && value !== "all")) {
+      if (
+        (key === "sort" && value !== "relevance") ||
+        (key !== "sort" && value !== "all")
+      ) {
         chips.push({ type: key, value, label: getFilterLabel(key, value) });
       }
     });
@@ -234,26 +250,26 @@ export default function Search() {
     const labels = {
       time: {
         day: "Past 24 hours",
-        week: "Past week", 
+        week: "Past week",
         month: "Past month",
-        year: "Past year"
+        year: "Past year",
       },
       type: {
         text: "Text posts",
         link: "Link posts",
         image: "Image posts",
-        video: "Video posts"
+        video: "Video posts",
       },
       engagement: {
         high: "High engagement",
         medium: "Medium engagement",
-        low: "Low engagement"
+        low: "Low engagement",
       },
       sort: {
         top: "Top rated",
         new: "Newest first",
-        comments: "Most comments"
-      }
+        comments: "Most comments",
+      },
     };
     return labels[type as keyof typeof labels]?.[value as keyof any] || value;
   };
@@ -264,23 +280,28 @@ export default function Search() {
       <header className="sticky top-0 z-50 border-b border-wireframe-border bg-wireframe-surface-primary shadow-sm">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center space-x-4 h-14">
-            <Link to="/home" className="p-2 hover:bg-wireframe-surface-hover rounded-md transition-colors">
+            <Link
+              to="/home"
+              className="p-2 hover:bg-wireframe-surface-hover rounded-md transition-colors"
+            >
               <ChevronLeft className="w-5 h-5 text-wireframe-text-secondary" />
             </Link>
-            
+
             {/* Enhanced Search Bar */}
             <div className="flex-1 max-w-2xl relative">
               <div className="relative">
                 <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-wireframe-text-muted" />
-                <Input 
+                <Input
                   value={query}
                   onChange={(e) => {
                     setQuery(e.target.value);
                     setShowSuggestions(e.target.value.length > 0);
                   }}
                   onFocus={() => setShowSuggestions(query.length > 0)}
-                  onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                  placeholder="Search Reddit with AI-powered semantic search" 
+                  onBlur={() =>
+                    setTimeout(() => setShowSuggestions(false), 200)
+                  }
+                  placeholder="Search Reddit with AI-powered semantic search"
                   className="pl-10 bg-wireframe-surface-secondary border-wireframe-border hover:border-reddit-orange focus:border-reddit-orange transition-colors"
                 />
                 {query && (
@@ -301,9 +322,12 @@ export default function Search() {
                 <Card className="absolute top-full left-0 right-0 mt-1 p-2 border border-wireframe-border bg-wireframe-surface-primary shadow-lg z-50">
                   <div className="space-y-1">
                     {searchSuggestions
-                      .filter(suggestion => 
-                        suggestion.toLowerCase().includes(query.toLowerCase()) && 
-                        suggestion.toLowerCase() !== query.toLowerCase()
+                      .filter(
+                        (suggestion) =>
+                          suggestion
+                            .toLowerCase()
+                            .includes(query.toLowerCase()) &&
+                          suggestion.toLowerCase() !== query.toLowerCase(),
                       )
                       .slice(0, 5)
                       .map((suggestion, index) => (
@@ -313,7 +337,9 @@ export default function Search() {
                           className="w-full text-left p-2 hover:bg-wireframe-surface-hover rounded text-sm transition-colors flex items-center space-x-2"
                         >
                           <SearchIcon className="w-4 h-4 text-wireframe-text-muted" />
-                          <span className="text-wireframe-text-primary">{suggestion}</span>
+                          <span className="text-wireframe-text-primary">
+                            {suggestion}
+                          </span>
                         </button>
                       ))}
                     <div className="border-t border-wireframe-border pt-2 mt-2">
@@ -341,8 +367,8 @@ export default function Search() {
             <div className="flex items-center space-x-2">
               <AlertCircle className="w-5 h-5 text-orange-600" />
               <span className="text-sm text-orange-800">
-                Did you mean: 
-                <button 
+                Did you mean:
+                <button
                   onClick={acceptTypoCorrection}
                   className="ml-1 font-medium underline hover:no-underline"
                 >
@@ -358,17 +384,24 @@ export default function Search() {
         <div className="mb-4">
           <h1 className="text-xl font-semibold text-wireframe-text-primary mb-2 flex items-center">
             <Sparkles className="w-5 h-5 mr-2 text-reddit-orange" />
-            Search results for "{query || originalQuery || 'AI'}"
+            Search results for "{query || originalQuery || "AI"}"
           </h1>
           <div className="flex items-center space-x-4 text-sm text-wireframe-text-muted">
             <span>
-              Found {searchResults.posts.length + searchResults.subreddits.length + searchResults.users.length} results
+              Found{" "}
+              {searchResults.posts.length +
+                searchResults.subreddits.length +
+                searchResults.users.length}{" "}
+              results
             </span>
             <span className="flex items-center space-x-1">
               <Clock className="w-4 h-4" />
               <span>Search completed in 0.12s</span>
             </span>
-            <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700">
+            <Badge
+              variant="secondary"
+              className="text-xs bg-purple-100 text-purple-700"
+            >
               <Lightbulb className="w-3 h-3 mr-1" />
               Semantic AI Search
             </Badge>
@@ -382,12 +415,17 @@ export default function Search() {
             <div className="flex items-center space-x-4 text-sm flex-wrap gap-2">
               <div className="flex items-center space-x-2">
                 <Filter className="w-4 h-4 text-wireframe-text-muted" />
-                <span className="text-wireframe-text-secondary font-medium">Filters:</span>
+                <span className="text-wireframe-text-secondary font-medium">
+                  Filters:
+                </span>
               </div>
-              
+
               <div className="flex items-center space-x-2">
                 <Calendar className="w-4 h-4 text-wireframe-text-muted" />
-                <Select value={activeFilters.time} onValueChange={(value) => handleFilterChange("time", value)}>
+                <Select
+                  value={activeFilters.time}
+                  onValueChange={(value) => handleFilterChange("time", value)}
+                >
                   <SelectTrigger className="w-32 h-8">
                     <SelectValue />
                   </SelectTrigger>
@@ -403,7 +441,10 @@ export default function Search() {
 
               <div className="flex items-center space-x-2">
                 <Hash className="w-4 h-4 text-wireframe-text-muted" />
-                <Select value={activeFilters.type} onValueChange={(value) => handleFilterChange("type", value)}>
+                <Select
+                  value={activeFilters.type}
+                  onValueChange={(value) => handleFilterChange("type", value)}
+                >
                   <SelectTrigger className="w-24 h-8">
                     <SelectValue />
                   </SelectTrigger>
@@ -419,7 +460,12 @@ export default function Search() {
 
               <div className="flex items-center space-x-2">
                 <TrendingUp className="w-4 h-4 text-wireframe-text-muted" />
-                <Select value={activeFilters.engagement} onValueChange={(value) => handleFilterChange("engagement", value)}>
+                <Select
+                  value={activeFilters.engagement}
+                  onValueChange={(value) =>
+                    handleFilterChange("engagement", value)
+                  }
+                >
                   <SelectTrigger className="w-32 h-8">
                     <SelectValue />
                   </SelectTrigger>
@@ -434,7 +480,10 @@ export default function Search() {
 
               <div className="flex items-center space-x-2">
                 <span className="text-wireframe-text-muted">Sort by:</span>
-                <Select value={activeFilters.sort} onValueChange={(value) => handleFilterChange("sort", value)}>
+                <Select
+                  value={activeFilters.sort}
+                  onValueChange={(value) => handleFilterChange("sort", value)}
+                >
                   <SelectTrigger className="w-32 h-8">
                     <SelectValue />
                   </SelectTrigger>
@@ -451,7 +500,9 @@ export default function Search() {
             {/* Active Filter Chips */}
             {getActiveFilterChips().length > 0 && (
               <div className="flex items-center space-x-2 flex-wrap">
-                <span className="text-sm text-wireframe-text-secondary">Active filters:</span>
+                <span className="text-sm text-wireframe-text-secondary">
+                  Active filters:
+                </span>
                 {getActiveFilterChips().map((chip, index) => (
                   <Badge
                     key={index}
@@ -490,13 +541,22 @@ export default function Search() {
         {/* Results Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-6 bg-wireframe-surface-secondary">
-            <TabsTrigger value="posts" className="data-[state=active]:bg-wireframe-surface-primary">
+            <TabsTrigger
+              value="posts"
+              className="data-[state=active]:bg-wireframe-surface-primary"
+            >
               Posts ({searchResults.posts.length})
             </TabsTrigger>
-            <TabsTrigger value="subreddits" className="data-[state=active]:bg-wireframe-surface-primary">
+            <TabsTrigger
+              value="subreddits"
+              className="data-[state=active]:bg-wireframe-surface-primary"
+            >
               Subreddits ({searchResults.subreddits.length})
             </TabsTrigger>
-            <TabsTrigger value="users" className="data-[state=active]:bg-wireframe-surface-primary">
+            <TabsTrigger
+              value="users"
+              className="data-[state=active]:bg-wireframe-surface-primary"
+            >
               Users ({searchResults.users.length})
             </TabsTrigger>
           </TabsList>
@@ -504,11 +564,18 @@ export default function Search() {
           {/* Posts Tab */}
           <TabsContent value="posts" className="space-y-4">
             {searchResults.posts.map((post) => (
-              <Card key={post.id} className="border border-wireframe-border bg-wireframe-surface-primary hover:shadow-lg transition-all duration-300">
+              <Card
+                key={post.id}
+                className="border border-wireframe-border bg-wireframe-surface-primary hover:shadow-lg transition-all duration-300"
+              >
                 <div className="flex">
                   {/* Vote Section */}
                   <div className="flex flex-col items-center p-3 bg-wireframe-surface-secondary">
-                    <Button variant="ghost" size="icon" className="h-8 w-8 mb-1 hover:bg-green-100 hover:text-green-600 transition-colors">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 mb-1 hover:bg-green-100 hover:text-green-600 transition-colors"
+                    >
                       <ArrowUp className="w-4 h-4" />
                     </Button>
                     <span className="text-sm font-medium text-wireframe-text-primary">
@@ -527,7 +594,11 @@ export default function Search() {
                         </Badge>
                         <div className="flex items-center space-x-1">
                           {post.semanticMatch.slice(0, 3).map((match, idx) => (
-                            <Badge key={idx} variant="outline" className="text-xs">
+                            <Badge
+                              key={idx}
+                              variant="outline"
+                              className="text-xs"
+                            >
                               {match}
                             </Badge>
                           ))}
@@ -537,15 +608,25 @@ export default function Search() {
 
                     {/* Post Header */}
                     <div className="flex items-center text-sm text-wireframe-text-muted mb-2">
-                      <Link to={`/r/${post.subreddit.slice(2)}`} className="font-medium hover:underline hover:text-reddit-orange transition-colors">
+                      <Link
+                        to={`/r/${post.subreddit.slice(2)}`}
+                        className="font-medium hover:underline hover:text-reddit-orange transition-colors"
+                      >
                         {post.subreddit}
                       </Link>
                       <span className="mx-1">•</span>
                       <span>Posted by</span>
-                      <Link to={`/u/${post.author.slice(2)}`} className="ml-1 hover:underline flex items-center space-x-1">
+                      <Link
+                        to={`/u/${post.author.slice(2)}`}
+                        className="ml-1 hover:underline flex items-center space-x-1"
+                      >
                         <span>{post.author}</span>
                         {post.authorBadges.map((badge, idx) => (
-                          <div key={idx} className="w-4 h-4 rounded-full bg-reddit-orange flex items-center justify-center" title={badge}>
+                          <div
+                            key={idx}
+                            className="w-4 h-4 rounded-full bg-reddit-orange flex items-center justify-center"
+                            title={badge}
+                          >
                             <Award className="w-2 h-2 text-white" />
                           </div>
                         ))}
@@ -580,7 +661,10 @@ export default function Search() {
           {/* Subreddits Tab */}
           <TabsContent value="subreddits" className="space-y-4">
             {searchResults.subreddits.map((subreddit) => (
-              <Card key={subreddit.name} className="border border-wireframe-border bg-wireframe-surface-primary p-4 hover:shadow-lg transition-all duration-300">
+              <Card
+                key={subreddit.name}
+                className="border border-wireframe-border bg-wireframe-surface-primary p-4 hover:shadow-lg transition-all duration-300"
+              >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
@@ -591,7 +675,7 @@ export default function Search() {
                       </div>
                       <div>
                         <div className="flex items-center space-x-2 mb-1">
-                          <Link 
+                          <Link
                             to={`/r/${subreddit.name.slice(2)}`}
                             className="font-semibold text-wireframe-text-primary hover:underline hover:text-reddit-orange transition-colors"
                           >
@@ -606,7 +690,10 @@ export default function Search() {
                             <Users className="w-4 h-4 mr-1" />
                             {subreddit.members} members
                           </div>
-                          <Badge variant="secondary" className="text-xs text-green-600">
+                          <Badge
+                            variant="secondary"
+                            className="text-xs text-green-600"
+                          >
                             {subreddit.growth}
                           </Badge>
                         </div>
@@ -616,10 +703,14 @@ export default function Search() {
                       {subreddit.description}
                     </p>
                   </div>
-                  <Button 
+                  <Button
                     variant={subreddit.joined ? "secondary" : "default"}
                     size="sm"
-                    className={subreddit.joined ? "" : "bg-wireframe-text-primary hover:bg-wireframe-text-secondary text-white"}
+                    className={
+                      subreddit.joined
+                        ? ""
+                        : "bg-wireframe-text-primary hover:bg-wireframe-text-secondary text-white"
+                    }
                   >
                     {subreddit.joined ? "Joined" : "Join"}
                   </Button>
@@ -631,7 +722,10 @@ export default function Search() {
           {/* Users Tab */}
           <TabsContent value="users" className="space-y-4">
             {searchResults.users.map((user) => (
-              <Card key={user.username} className="border border-wireframe-border bg-wireframe-surface-primary p-4 hover:shadow-lg transition-all duration-300">
+              <Card
+                key={user.username}
+                className="border border-wireframe-border bg-wireframe-surface-primary p-4 hover:shadow-lg transition-all duration-300"
+              >
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-3">
                     <Avatar className="w-12 h-12">
@@ -642,7 +736,7 @@ export default function Search() {
                     </Avatar>
                     <div>
                       <div className="flex items-center space-x-2 mb-1">
-                        <Link 
+                        <Link
                           to={`/u/${user.username.slice(2)}`}
                           className="font-semibold text-wireframe-text-primary hover:underline hover:text-reddit-orange transition-colors"
                         >
@@ -656,7 +750,11 @@ export default function Search() {
                         <span>{user.karma} karma</span>
                         <div className="flex items-center space-x-1">
                           {user.badges.map((badge, idx) => (
-                            <div key={idx} className="w-4 h-4 rounded-full bg-reddit-orange flex items-center justify-center" title={badge}>
+                            <div
+                              key={idx}
+                              className="w-4 h-4 rounded-full bg-reddit-orange flex items-center justify-center"
+                              title={badge}
+                            >
                               <Award className="w-2 h-2 text-white" />
                             </div>
                           ))}
@@ -667,7 +765,11 @@ export default function Search() {
                       </p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm" className="hover:bg-reddit-orange hover:text-white transition-colors">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="hover:bg-reddit-orange hover:text-white transition-colors"
+                  >
                     Follow
                   </Button>
                 </div>
