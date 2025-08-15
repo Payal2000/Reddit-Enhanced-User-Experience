@@ -2,21 +2,27 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Gift, 
-  Coins, 
-  Plus, 
-  Award, 
-  Star, 
-  Heart, 
-  Zap, 
-  Crown, 
+import {
+  Gift,
+  Coins,
+  Plus,
+  Award,
+  Star,
+  Heart,
+  Zap,
+  Crown,
   Diamond,
   RefreshCw,
-  Check
+  Check,
 } from "lucide-react";
 import { TooltipHover } from "@/components/Microinteractions";
 
@@ -43,7 +49,7 @@ const awards: Award[] = [
     icon: <Award className="w-6 h-6 text-gray-400" />,
     cost: 100,
     description: "Shows appreciation for good content",
-    rarity: "common"
+    rarity: "common",
   },
   {
     id: "gold",
@@ -51,7 +57,7 @@ const awards: Award[] = [
     icon: <Award className="w-6 h-6 text-yellow-500" />,
     cost: 500,
     description: "Premium award with special recognition",
-    rarity: "rare"
+    rarity: "rare",
   },
   {
     id: "platinum",
@@ -59,7 +65,7 @@ const awards: Award[] = [
     icon: <Crown className="w-6 h-6 text-gray-300" />,
     cost: 1800,
     description: "Highest honor with exclusive benefits",
-    rarity: "epic"
+    rarity: "epic",
   },
   {
     id: "helpful",
@@ -67,7 +73,7 @@ const awards: Award[] = [
     icon: <Star className="w-6 h-6 text-blue-500" />,
     cost: 150,
     description: "For genuinely helpful contributions",
-    rarity: "common"
+    rarity: "common",
   },
   {
     id: "wholesome",
@@ -75,7 +81,7 @@ const awards: Award[] = [
     icon: <Heart className="w-6 h-6 text-pink-500" />,
     cost: 125,
     description: "Heartwarming and positive content",
-    rarity: "common"
+    rarity: "common",
   },
   {
     id: "mind-blown",
@@ -83,7 +89,7 @@ const awards: Award[] = [
     icon: <Zap className="w-6 h-6 text-purple-500" />,
     cost: 400,
     description: "Revolutionary or mind-changing content",
-    rarity: "rare"
+    rarity: "rare",
   },
   {
     id: "diamond",
@@ -91,8 +97,8 @@ const awards: Award[] = [
     icon: <Diamond className="w-6 h-6 text-cyan-400" />,
     cost: 2500,
     description: "Ultra-rare premium award",
-    rarity: "legendary"
-  }
+    rarity: "legendary",
+  },
 ];
 
 const recentAwards = [
@@ -101,22 +107,27 @@ const recentAwards = [
   { id: "silver", name: "Silver", usedAt: "3d ago" },
 ];
 
-export default function AwardsModal({ postId, commentId, onAwardGiven, trigger }: AwardsModalProps) {
+export default function AwardsModal({
+  postId,
+  commentId,
+  onAwardGiven,
+  trigger,
+}: AwardsModalProps) {
   const [coinBalance, setCoinBalance] = useState(1250);
   const [selectedAward, setSelectedAward] = useState<string | null>(null);
   const [isGifting, setIsGifting] = useState(false);
   const [giftedAwards, setGiftedAwards] = useState<string[]>([]);
 
   const handleGiftAward = async (awardId: string) => {
-    const award = awards.find(a => a.id === awardId);
+    const award = awards.find((a) => a.id === awardId);
     if (!award || coinBalance < award.cost) return;
 
     setIsGifting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
-      setCoinBalance(prev => prev - award.cost);
-      setGiftedAwards(prev => [...prev, awardId]);
+      setCoinBalance((prev) => prev - award.cost);
+      setGiftedAwards((prev) => [...prev, awardId]);
       setSelectedAward(null);
       setIsGifting(false);
       onAwardGiven?.(awardId);
@@ -125,21 +136,30 @@ export default function AwardsModal({ postId, commentId, onAwardGiven, trigger }
 
   const handleReloadCoins = () => {
     // In a real app, this would open a payment flow
-    setCoinBalance(prev => prev + 1000);
+    setCoinBalance((prev) => prev + 1000);
   };
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
-      case "common": return "text-gray-600 bg-gray-100";
-      case "rare": return "text-blue-600 bg-blue-100";
-      case "epic": return "text-purple-600 bg-purple-100";
-      case "legendary": return "text-orange-600 bg-orange-100";
-      default: return "text-gray-600 bg-gray-100";
+      case "common":
+        return "text-gray-600 bg-gray-100";
+      case "rare":
+        return "text-blue-600 bg-blue-100";
+      case "epic":
+        return "text-purple-600 bg-purple-100";
+      case "legendary":
+        return "text-orange-600 bg-orange-100";
+      default:
+        return "text-gray-600 bg-gray-100";
     }
   };
 
   const defaultTrigger = (
-    <Button variant="ghost" size="sm" className="h-8 px-2 hover:bg-yellow-50 hover:text-yellow-600 transition-colors">
+    <Button
+      variant="ghost"
+      size="sm"
+      className="h-8 px-2 hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
+    >
       <Gift className="w-4 h-4 mr-1" />
       Award
     </Button>
@@ -147,9 +167,7 @@ export default function AwardsModal({ postId, commentId, onAwardGiven, trigger }
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {trigger || defaultTrigger}
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger || defaultTrigger}</DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
@@ -164,8 +182,12 @@ export default function AwardsModal({ postId, commentId, onAwardGiven, trigger }
             <div className="flex items-center space-x-3">
               <Coins className="w-6 h-6 text-yellow-500" />
               <div>
-                <p className="font-semibold text-wireframe-text-primary">{coinBalance} Coins</p>
-                <p className="text-xs text-wireframe-text-muted">Available balance</p>
+                <p className="font-semibold text-wireframe-text-primary">
+                  {coinBalance} Coins
+                </p>
+                <p className="text-xs text-wireframe-text-muted">
+                  Available balance
+                </p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -203,26 +225,28 @@ export default function AwardsModal({ postId, commentId, onAwardGiven, trigger }
               {awards.map((award) => {
                 const canAfford = coinBalance >= award.cost;
                 const isGifted = giftedAwards.includes(award.id);
-                
+
                 return (
-                  <Card 
+                  <Card
                     key={award.id}
                     className={`p-4 cursor-pointer transition-all duration-300 hover:shadow-md ${
-                      selectedAward === award.id 
-                        ? "ring-2 ring-reddit-orange border-reddit-orange" 
+                      selectedAward === award.id
+                        ? "ring-2 ring-reddit-orange border-reddit-orange"
                         : "border-wireframe-border hover:border-wireframe-text-secondary"
                     } ${!canAfford ? "opacity-50" : ""}`}
                     onClick={() => canAfford && setSelectedAward(award.id)}
                   >
                     <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0">
-                        {award.icon}
-                      </div>
+                      <div className="flex-shrink-0">{award.icon}</div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-medium text-wireframe-text-primary">{award.name}</h3>
+                          <h3 className="font-medium text-wireframe-text-primary">
+                            {award.name}
+                          </h3>
                           <div className="flex items-center space-x-2">
-                            <Badge className={`text-xs ${getRarityColor(award.rarity)}`}>
+                            <Badge
+                              className={`text-xs ${getRarityColor(award.rarity)}`}
+                            >
                               {award.rarity}
                             </Badge>
                             {isGifted && (
@@ -239,7 +263,9 @@ export default function AwardsModal({ postId, commentId, onAwardGiven, trigger }
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-1 text-sm">
                             <Coins className="w-4 h-4 text-yellow-500" />
-                            <span className={`font-medium ${canAfford ? "text-wireframe-text-primary" : "text-red-500"}`}>
+                            <span
+                              className={`font-medium ${canAfford ? "text-wireframe-text-primary" : "text-red-500"}`}
+                            >
                               {award.cost}
                             </span>
                           </div>
@@ -273,17 +299,24 @@ export default function AwardsModal({ postId, commentId, onAwardGiven, trigger }
           <TabsContent value="recent" className="space-y-4">
             <div className="space-y-3">
               {recentAwards.map((recent) => {
-                const award = awards.find(a => a.id === recent.id);
+                const award = awards.find((a) => a.id === recent.id);
                 if (!award) return null;
 
                 return (
-                  <Card key={`recent-${recent.id}`} className="p-3 border border-wireframe-border">
+                  <Card
+                    key={`recent-${recent.id}`}
+                    className="p-3 border border-wireframe-border"
+                  >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         {award.icon}
                         <div>
-                          <p className="font-medium text-wireframe-text-primary">{award.name}</p>
-                          <p className="text-xs text-wireframe-text-muted">Used {recent.usedAt}</p>
+                          <p className="font-medium text-wireframe-text-primary">
+                            {award.name}
+                          </p>
+                          <p className="text-xs text-wireframe-text-muted">
+                            Used {recent.usedAt}
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -315,7 +348,8 @@ export default function AwardsModal({ postId, commentId, onAwardGiven, trigger }
 
         <div className="text-center">
           <p className="text-xs text-wireframe-text-muted leading-relaxed">
-            Awards show appreciation and help support the community. Coins can be earned through participation or purchased.
+            Awards show appreciation and help support the community. Coins can
+            be earned through participation or purchased.
           </p>
         </div>
       </DialogContent>

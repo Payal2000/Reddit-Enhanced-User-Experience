@@ -1,17 +1,17 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Play, 
-  Pause, 
-  Volume2, 
-  VolumeX, 
-  Maximize, 
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize,
   Minimize,
   SkipBack,
   SkipForward,
   Clock,
-  Calendar
+  Calendar,
 } from "lucide-react";
 import { TooltipHover } from "@/components/Microinteractions";
 
@@ -34,7 +34,7 @@ export default function VideoPlayerWithTimestamp({
   duration = 0,
   autoPlay = false,
   controls = true,
-  className = ""
+  className = "",
 }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -63,18 +63,18 @@ export default function VideoPlayerWithTimestamp({
     const handlePause = () => setIsPlaying(false);
     const handleEnded = () => setIsPlaying(false);
 
-    video.addEventListener('timeupdate', updateTime);
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    video.addEventListener('play', handlePlay);
-    video.addEventListener('pause', handlePause);
-    video.addEventListener('ended', handleEnded);
+    video.addEventListener("timeupdate", updateTime);
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("pause", handlePause);
+    video.addEventListener("ended", handleEnded);
 
     return () => {
-      video.removeEventListener('timeupdate', updateTime);
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      video.removeEventListener('play', handlePlay);
-      video.removeEventListener('pause', handlePause);
-      video.removeEventListener('ended', handleEnded);
+      video.removeEventListener("timeupdate", updateTime);
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("pause", handlePause);
+      video.removeEventListener("ended", handleEnded);
     };
   }, []);
 
@@ -121,7 +121,7 @@ export default function VideoPlayerWithTimestamp({
     const clickX = e.clientX - rect.left;
     const clickPercent = clickX / rect.width;
     const newTime = clickPercent * video.duration;
-    
+
     video.currentTime = newTime;
   };
 
@@ -129,13 +129,16 @@ export default function VideoPlayerWithTimestamp({
     const video = videoRef.current;
     if (!video) return;
 
-    video.currentTime = Math.max(0, Math.min(video.duration, video.currentTime + seconds));
+    video.currentTime = Math.max(
+      0,
+      Math.min(video.duration, video.currentTime + seconds),
+    );
   };
 
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
   const handleMouseEnter = () => {
@@ -168,7 +171,7 @@ export default function VideoPlayerWithTimestamp({
   };
 
   return (
-    <div 
+    <div
       className={`relative bg-black rounded-lg overflow-hidden ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -226,17 +229,19 @@ export default function VideoPlayerWithTimestamp({
 
       {/* Controls */}
       {controls && (
-        <div 
+        <div
           className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/50 to-transparent p-4 transition-all duration-300 ${
-            showControls ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+            showControls
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-2"
           }`}
         >
           {/* Progress Bar */}
-          <div 
+          <div
             className="w-full h-1 bg-gray-600 rounded-full mb-3 cursor-pointer group"
             onClick={handleProgressClick}
           >
-            <div 
+            <div
               className="h-full bg-reddit-orange rounded-full transition-all duration-150 group-hover:h-1.5"
               style={{ width: `${videoProgress}%` }}
             />
@@ -252,7 +257,11 @@ export default function VideoPlayerWithTimestamp({
                   onClick={togglePlayPause}
                   className="w-8 h-8 text-white hover:bg-white/20"
                 >
-                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
+                  {isPlaying ? (
+                    <Pause className="w-4 h-4" />
+                  ) : (
+                    <Play className="w-4 h-4 ml-0.5" />
+                  )}
                 </Button>
               </TooltipHover>
 
@@ -285,7 +294,11 @@ export default function VideoPlayerWithTimestamp({
                   onClick={toggleMute}
                   className="w-8 h-8 text-white hover:bg-white/20"
                 >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                  {isMuted ? (
+                    <VolumeX className="w-4 h-4" />
+                  ) : (
+                    <Volume2 className="w-4 h-4" />
+                  )}
                 </Button>
               </TooltipHover>
             </div>
@@ -296,14 +309,20 @@ export default function VideoPlayerWithTimestamp({
                 {formatTime(currentTime)} / {formatTime(duration)}
               </div>
 
-              <TooltipHover content={isFullscreen ? "Exit fullscreen" : "Fullscreen"}>
+              <TooltipHover
+                content={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+              >
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={toggleFullscreen}
                   className="w-8 h-8 text-white hover:bg-white/20"
                 >
-                  {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
+                  {isFullscreen ? (
+                    <Minimize className="w-4 h-4" />
+                  ) : (
+                    <Maximize className="w-4 h-4" />
+                  )}
                 </Button>
               </TooltipHover>
             </div>

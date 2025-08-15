@@ -63,7 +63,6 @@ export default function Onboarding() {
           </Button>
         </div>
 
-
         {/* Login Link */}
         <div className="text-center">
           <p className="text-wireframe-text-muted text-sm">

@@ -2,19 +2,19 @@ import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { 
-  Reply, 
-  Share, 
-  Flag, 
-  Copy, 
-  Bookmark, 
-  Award, 
+import {
+  Reply,
+  Share,
+  Flag,
+  Copy,
+  Bookmark,
+  Award,
   MoreHorizontal,
   Eye,
   EyeOff,
   UserPlus,
   MessageCircle,
-  Heart
+  Heart,
 } from "lucide-react";
 import { TooltipHover } from "@/components/Microinteractions";
 
@@ -35,12 +35,12 @@ interface MenuAction {
   primary?: boolean;
 }
 
-export default function LongPressContextMenu({ 
-  children, 
-  onAction, 
-  isComment = false, 
+export default function LongPressContextMenu({
+  children,
+  onAction,
+  isComment = false,
   isOwnContent = false,
-  className = ""
+  className = "",
 }: LongPressContextMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -53,74 +53,79 @@ export default function LongPressContextMenu({
       label: "Reply",
       icon: <Reply className="w-4 h-4" />,
       description: "Respond to this content",
-      primary: true
+      primary: true,
     },
     {
       id: "award",
       label: "Give Award",
       icon: <Award className="w-4 h-4" />,
-      description: "Show appreciation"
+      description: "Show appreciation",
     },
     {
       id: "save",
       label: "Save",
       icon: <Bookmark className="w-4 h-4" />,
-      description: "Save for later"
+      description: "Save for later",
     },
     {
       id: "share",
       label: "Share",
       icon: <Share className="w-4 h-4" />,
-      description: "Share with others"
+      description: "Share with others",
     },
     {
       id: "copy",
       label: "Copy Text",
       icon: <Copy className="w-4 h-4" />,
-      description: "Copy to clipboard"
+      description: "Copy to clipboard",
     },
-    ...(isComment ? [
-      {
-        id: "follow",
-        label: "Follow User",
-        icon: <UserPlus className="w-4 h-4" />,
-        description: "Get notified of new posts"
-      }
-    ] : []),
+    ...(isComment
+      ? [
+          {
+            id: "follow",
+            label: "Follow User",
+            icon: <UserPlus className="w-4 h-4" />,
+            description: "Get notified of new posts",
+          },
+        ]
+      : []),
     {
       id: "hide",
       label: "Hide",
       icon: <EyeOff className="w-4 h-4" />,
-      description: "Hide from feed"
+      description: "Hide from feed",
     },
     {
       id: "report",
       label: "Report",
       icon: <Flag className="w-4 h-4" />,
       description: "Report inappropriate content",
-      destructive: true
-    }
+      destructive: true,
+    },
   ];
 
-  const handleLongPressStart = useCallback((e: React.TouchEvent | React.MouseEvent) => {
-    e.preventDefault();
-    isLongPressing.current = true;
-    
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+  const handleLongPressStart = useCallback(
+    (e: React.TouchEvent | React.MouseEvent) => {
+      e.preventDefault();
+      isLongPressing.current = true;
 
-    timeoutRef.current = setTimeout(() => {
-      if (isLongPressing.current) {
-        setPosition({ x: clientX, y: clientY });
-        setIsOpen(true);
-        
-        // Haptic feedback for mobile
-        if ('vibrate' in navigator) {
-          navigator.vibrate(50);
+      const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+      const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+
+      timeoutRef.current = setTimeout(() => {
+        if (isLongPressing.current) {
+          setPosition({ x: clientX, y: clientY });
+          setIsOpen(true);
+
+          // Haptic feedback for mobile
+          if ("vibrate" in navigator) {
+            navigator.vibrate(50);
+          }
         }
-      }
-    }, 500); // 500ms long press threshold
-  }, []);
+      }, 500); // 500ms long press threshold
+    },
+    [],
+  );
 
   const handleLongPressEnd = useCallback(() => {
     isLongPressing.current = false;
@@ -156,13 +161,13 @@ export default function LongPressContextMenu({
       {isOpen && (
         <>
           {/* Background overlay */}
-          <div 
+          <div
             className="fixed inset-0 bg-black bg-opacity-20 z-50"
             onClick={handleOutsideClick}
           />
-          
+
           {/* Context Menu */}
-          <Card 
+          <Card
             className="fixed z-50 min-w-48 max-w-64 border border-wireframe-border bg-wireframe-surface-primary shadow-xl animate-in zoom-in duration-200"
             style={{
               left: Math.min(position.x, window.innerWidth - 250),
@@ -182,74 +187,81 @@ export default function LongPressContextMenu({
 
               {/* Primary Actions */}
               <div className="space-y-1 mb-3">
-                {actions.filter(action => action.primary).map((action) => (
-                  <Button
-                    key={action.id}
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleAction(action.id)}
-                    className="w-full justify-start h-10 px-3 hover:bg-wireframe-surface-hover transition-colors"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className="text-reddit-orange">
-                        {action.icon}
-                      </div>
-                      <div className="text-left">
-                        <div className="text-sm font-medium text-wireframe-text-primary">
-                          {action.label}
-                        </div>
-                        {action.description && (
-                          <div className="text-xs text-wireframe-text-muted">
-                            {action.description}
+                {actions
+                  .filter((action) => action.primary)
+                  .map((action) => (
+                    <Button
+                      key={action.id}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleAction(action.id)}
+                      className="w-full justify-start h-10 px-3 hover:bg-wireframe-surface-hover transition-colors"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className="text-reddit-orange">{action.icon}</div>
+                        <div className="text-left">
+                          <div className="text-sm font-medium text-wireframe-text-primary">
+                            {action.label}
                           </div>
-                        )}
+                          {action.description && (
+                            <div className="text-xs text-wireframe-text-muted">
+                              {action.description}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </Button>
-                ))}
+                    </Button>
+                  ))}
               </div>
 
               <Separator className="my-2" />
 
               {/* Secondary Actions */}
               <div className="grid grid-cols-2 gap-1 mb-3">
-                {actions.filter(action => !action.primary && !action.destructive).map((action) => (
-                  <TooltipHover key={action.id} content={action.description || action.label}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleAction(action.id)}
-                      className="h-12 flex-col space-y-1 hover:bg-wireframe-surface-hover transition-colors"
+                {actions
+                  .filter((action) => !action.primary && !action.destructive)
+                  .map((action) => (
+                    <TooltipHover
+                      key={action.id}
+                      content={action.description || action.label}
                     >
-                      <div className="text-wireframe-text-secondary">
-                        {action.icon}
-                      </div>
-                      <span className="text-xs text-wireframe-text-muted">
-                        {action.label}
-                      </span>
-                    </Button>
-                  </TooltipHover>
-                ))}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleAction(action.id)}
+                        className="h-12 flex-col space-y-1 hover:bg-wireframe-surface-hover transition-colors"
+                      >
+                        <div className="text-wireframe-text-secondary">
+                          {action.icon}
+                        </div>
+                        <span className="text-xs text-wireframe-text-muted">
+                          {action.label}
+                        </span>
+                      </Button>
+                    </TooltipHover>
+                  ))}
               </div>
 
               <Separator className="my-2" />
 
               {/* Destructive Actions */}
               <div className="space-y-1">
-                {actions.filter(action => action.destructive).map((action) => (
-                  <Button
-                    key={action.id}
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleAction(action.id)}
-                    className="w-full justify-start h-8 px-3 text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors"
-                  >
-                    <div className="flex items-center space-x-2">
-                      {action.icon}
-                      <span className="text-sm">{action.label}</span>
-                    </div>
-                  </Button>
-                ))}
+                {actions
+                  .filter((action) => action.destructive)
+                  .map((action) => (
+                    <Button
+                      key={action.id}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleAction(action.id)}
+                      className="w-full justify-start h-8 px-3 text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors"
+                    >
+                      <div className="flex items-center space-x-2">
+                        {action.icon}
+                        <span className="text-sm">{action.label}</span>
+                      </div>
+                    </Button>
+                  ))}
               </div>
 
               {/* Footer */}

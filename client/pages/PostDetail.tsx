@@ -305,8 +305,8 @@ export default function PostDetail() {
         {/* Thread Connection Dot */}
         {comment.depth > 0 && (
           <div
-            className={`absolute w-3 h-3 rounded-full ${getThreadConnectorColor(comment.depth - 1).replace('border-', 'bg-')} opacity-80`}
-            style={{ left: `${comment.depth * 20 - 20}px`, top: '20px' }}
+            className={`absolute w-3 h-3 rounded-full ${getThreadConnectorColor(comment.depth - 1).replace("border-", "bg-")} opacity-80`}
+            style={{ left: `${comment.depth * 20 - 20}px`, top: "20px" }}
           />
         )}
 
@@ -314,11 +314,13 @@ export default function PostDetail() {
         <LongPressContextMenu
           isComment={true}
           isOwnContent={comment.isOp}
-          onAction={(action) => console.log(`Action: ${action} on comment ${comment.id}`)}
+          onAction={(action) =>
+            console.log(`Action: ${action} on comment ${comment.id}`)
+          }
         >
           <AnimatedCard
-          variant="hover-lift"
-          className={`
+            variant="hover-lift"
+            className={`
             border border-wireframe-border transition-all duration-300
             ${
               isParent
@@ -327,160 +329,162 @@ export default function PostDetail() {
             }
             ${isFocused ? "ring-2 ring-reddit-orange shadow-lg bg-orange-50" : ""}
           `}
-          style={{
-            marginLeft: comment.depth > 0 ? `${comment.depth * 20}px` : "0",
-          }}
-        >
-          {/* Comment Header */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center space-x-3">
-              <Avatar className={isParent ? "w-8 h-8" : "w-6 h-6"}>
-                <AvatarFallback className="bg-wireframe-surface-secondary text-xs">
-                  {comment.author.slice(2, 4).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-
-              <div className="flex items-center space-x-2">
-                <span
-                  className={`${isParent ? "font-bold text-base" : "font-medium text-sm"} text-wireframe-text-primary`}
-                >
-                  {comment.author}
-                </span>
-
-                {/* Author Badges */}
-                <div className="flex items-center space-x-1">
-                  {comment.authorBadges.map((badge, idx) => (
-                    <TooltipHover key={idx} content={badge}>
-                      <div
-                        className={`w-4 h-4 rounded-full flex items-center justify-center ${getBadgeColor(badge)}`}
-                      >
-                        <Award className="w-2 h-2 text-white" />
-                      </div>
-                    </TooltipHover>
-                  ))}
-                  {comment.isOp && (
-                    <Badge
-                      variant="secondary"
-                      className="text-xs bg-reddit-orange text-white"
-                    >
-                      OP
-                    </Badge>
-                  )}
-                </div>
-
-                <span className="text-xs text-wireframe-text-muted">
-                  {comment.timeAgo}
-                </span>
-              </div>
-            </div>
-
-            {/* Comment Actions */}
-            <div className="flex items-center space-x-2">
-              {!focusedComment && (
-                <TooltipHover content="Focus on this thread">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setFocusedComment(comment.id)}
-                    className="h-6 w-6 p-0 hover:bg-wireframe-surface-hover"
-                  >
-                    <Focus className="w-3 h-3" />
-                  </Button>
-                </TooltipHover>
-              )}
-
-              {hasReplies && (
-                <TooltipHover
-                  content={
-                    comment.isCollapsed ? "Expand replies" : "Collapse replies"
-                  }
-                >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => toggleCommentCollapse(comment.id)}
-                    className="h-6 w-6 p-0 hover:bg-wireframe-surface-hover"
-                  >
-                    {comment.isCollapsed ? (
-                      <Plus className="w-3 h-3" />
-                    ) : (
-                      <Minus className="w-3 h-3" />
-                    )}
-                  </Button>
-                </TooltipHover>
-              )}
-
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-6 w-6 p-0 hover:bg-wireframe-surface-hover"
-              >
-                <MoreHorizontal className="w-3 h-3" />
-              </Button>
-            </div>
-          </div>
-
-          {/* Comment Content */}
-          <div
-            className={`mb-3 leading-relaxed ${isParent ? "text-base" : "text-sm"} text-wireframe-text-secondary`}
+            style={{
+              marginLeft: comment.depth > 0 ? `${comment.depth * 20}px` : "0",
+            }}
           >
-            {comment.content}
-          </div>
+            {/* Comment Header */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center space-x-3">
+                <Avatar className={isParent ? "w-8 h-8" : "w-6 h-6"}>
+                  <AvatarFallback className="bg-wireframe-surface-secondary text-xs">
+                    {comment.author.slice(2, 4).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
 
-          {/* Comment Footer */}
-          <div className="flex items-center space-x-4 text-xs">
-            <div className="flex items-center space-x-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-6 px-1 hover:bg-green-50 hover:text-green-600 transition-colors"
-              >
-                <ArrowUp className="w-3 h-3" />
-              </Button>
-              <span className="font-medium text-wireframe-text-primary min-w-[20px] text-center">
-                {formatNumber(comment.upvotes - comment.downvotes)}
-              </span>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-6 px-1 hover:bg-red-50 hover:text-red-600 transition-colors"
-              >
-                <ArrowDown className="w-3 h-3" />
-              </Button>
-            </div>
+                <div className="flex items-center space-x-2">
+                  <span
+                    className={`${isParent ? "font-bold text-base" : "font-medium text-sm"} text-wireframe-text-primary`}
+                  >
+                    {comment.author}
+                  </span>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-6 px-2 text-xs hover:bg-blue-50 hover:text-blue-600 transition-colors"
-            >
-              <Reply className="w-3 h-3 mr-1" />
-              Reply
-            </Button>
+                  {/* Author Badges */}
+                  <div className="flex items-center space-x-1">
+                    {comment.authorBadges.map((badge, idx) => (
+                      <TooltipHover key={idx} content={badge}>
+                        <div
+                          className={`w-4 h-4 rounded-full flex items-center justify-center ${getBadgeColor(badge)}`}
+                        >
+                          <Award className="w-2 h-2 text-white" />
+                        </div>
+                      </TooltipHover>
+                    ))}
+                    {comment.isOp && (
+                      <Badge
+                        variant="secondary"
+                        className="text-xs bg-reddit-orange text-white"
+                      >
+                        OP
+                      </Badge>
+                    )}
+                  </div>
 
-            <AwardsModal
-              commentId={comment.id}
-              trigger={
+                  <span className="text-xs text-wireframe-text-muted">
+                    {comment.timeAgo}
+                  </span>
+                </div>
+              </div>
+
+              {/* Comment Actions */}
+              <div className="flex items-center space-x-2">
+                {!focusedComment && (
+                  <TooltipHover content="Focus on this thread">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setFocusedComment(comment.id)}
+                      className="h-6 w-6 p-0 hover:bg-wireframe-surface-hover"
+                    >
+                      <Focus className="w-3 h-3" />
+                    </Button>
+                  </TooltipHover>
+                )}
+
+                {hasReplies && (
+                  <TooltipHover
+                    content={
+                      comment.isCollapsed
+                        ? "Expand replies"
+                        : "Collapse replies"
+                    }
+                  >
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => toggleCommentCollapse(comment.id)}
+                      className="h-6 w-6 p-0 hover:bg-wireframe-surface-hover"
+                    >
+                      {comment.isCollapsed ? (
+                        <Plus className="w-3 h-3" />
+                      ) : (
+                        <Minus className="w-3 h-3" />
+                      )}
+                    </Button>
+                  </TooltipHover>
+                )}
+
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-6 px-2 text-xs hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
+                  className="h-6 w-6 p-0 hover:bg-wireframe-surface-hover"
                 >
-                  <Award className="w-3 h-3 mr-1" />
-                  Award
+                  <MoreHorizontal className="w-3 h-3" />
                 </Button>
-              }
-            />
+              </div>
+            </div>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-6 px-2 text-xs hover:bg-red-50 hover:text-red-600 transition-colors"
+            {/* Comment Content */}
+            <div
+              className={`mb-3 leading-relaxed ${isParent ? "text-base" : "text-sm"} text-wireframe-text-secondary`}
             >
-              <Flag className="w-3 h-3 mr-1" />
-              Report
-            </Button>
-          </div>
+              {comment.content}
+            </div>
+
+            {/* Comment Footer */}
+            <div className="flex items-center space-x-4 text-xs">
+              <div className="flex items-center space-x-1">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 px-1 hover:bg-green-50 hover:text-green-600 transition-colors"
+                >
+                  <ArrowUp className="w-3 h-3" />
+                </Button>
+                <span className="font-medium text-wireframe-text-primary min-w-[20px] text-center">
+                  {formatNumber(comment.upvotes - comment.downvotes)}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 px-1 hover:bg-red-50 hover:text-red-600 transition-colors"
+                >
+                  <ArrowDown className="w-3 h-3" />
+                </Button>
+              </div>
+
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-6 px-2 text-xs hover:bg-blue-50 hover:text-blue-600 transition-colors"
+              >
+                <Reply className="w-3 h-3 mr-1" />
+                Reply
+              </Button>
+
+              <AwardsModal
+                commentId={comment.id}
+                trigger={
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 px-2 text-xs hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
+                  >
+                    <Award className="w-3 h-3 mr-1" />
+                    Award
+                  </Button>
+                }
+              />
+
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-6 px-2 text-xs hover:bg-red-50 hover:text-red-600 transition-colors"
+              >
+                <Flag className="w-3 h-3 mr-1" />
+                Report
+              </Button>
+            </div>
           </AnimatedCard>
         </LongPressContextMenu>
 
@@ -499,7 +503,10 @@ export default function PostDetail() {
                   {comment.replies.length === 1 ? "reply" : "replies"}
                 </span>
                 {isDeepThread && (
-                  <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700">
+                  <Badge
+                    variant="outline"
+                    className="text-xs bg-blue-50 text-blue-700"
+                  >
                     Deep thread
                   </Badge>
                 )}

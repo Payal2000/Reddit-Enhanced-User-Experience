@@ -610,13 +610,19 @@ export default function Home() {
             <Card className="mb-6 p-4 border border-wireframe-border bg-gradient-to-r from-wireframe-surface-primary to-wireframe-surface-secondary">
               <div className="flex items-center space-x-2 mb-3">
                 <Sparkles className="w-5 h-5 text-reddit-orange" />
-                <h3 className="font-semibold text-wireframe-text-primary">New Reddit Features</h3>
-                <Badge variant="secondary" className="text-xs bg-reddit-orange text-white">
+                <h3 className="font-semibold text-wireframe-text-primary">
+                  New Reddit Features
+                </h3>
+                <Badge
+                  variant="secondary"
+                  className="text-xs bg-reddit-orange text-white"
+                >
                   Enhanced
                 </Badge>
               </div>
               <p className="text-sm text-wireframe-text-secondary mb-4">
-                Experience the latest Reddit enhancements with improved interactions, better filtering, and personalized features.
+                Experience the latest Reddit enhancements with improved
+                interactions, better filtering, and personalized features.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <Button

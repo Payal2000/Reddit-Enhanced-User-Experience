@@ -5,21 +5,21 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  ChevronLeft, 
-  Filter, 
-  FileText, 
-  Image, 
-  Video, 
-  Link as LinkIcon, 
-  TrendingUp, 
-  Clock, 
-  MessageCircle, 
+import {
+  ChevronLeft,
+  Filter,
+  FileText,
+  Image,
+  Video,
+  Link as LinkIcon,
+  TrendingUp,
+  Clock,
+  MessageCircle,
   Award,
   Wifi,
   WifiOff,
   Settings,
-  X
+  X,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -35,18 +35,63 @@ interface FilterState {
 }
 
 const contentTypes = [
-  { id: "text", label: "Text Posts", icon: <FileText className="w-4 h-4" />, description: "Discussion posts and self-posts" },
-  { id: "image", label: "Images", icon: <Image className="w-4 h-4" />, description: "Photos and pictures" },
-  { id: "video", label: "Videos", icon: <Video className="w-4 h-4" />, description: "Video content and GIFs" },
-  { id: "link", label: "Links", icon: <LinkIcon className="w-4 h-4" />, description: "External links and articles" }
+  {
+    id: "text",
+    label: "Text Posts",
+    icon: <FileText className="w-4 h-4" />,
+    description: "Discussion posts and self-posts",
+  },
+  {
+    id: "image",
+    label: "Images",
+    icon: <Image className="w-4 h-4" />,
+    description: "Photos and pictures",
+  },
+  {
+    id: "video",
+    label: "Videos",
+    icon: <Video className="w-4 h-4" />,
+    description: "Video content and GIFs",
+  },
+  {
+    id: "link",
+    label: "Links",
+    icon: <LinkIcon className="w-4 h-4" />,
+    description: "External links and articles",
+  },
 ];
 
 const sortOptions = [
-  { id: "hot", label: "Hot", icon: <TrendingUp className="w-4 h-4" />, description: "Trending and popular posts" },
-  { id: "new", label: "New", icon: <Clock className="w-4 h-4" />, description: "Latest posts first" },
-  { id: "top", label: "Top", icon: <Award className="w-4 h-4" />, description: "Highest scored posts" },
-  { id: "rising", label: "Rising", icon: <TrendingUp className="w-4 h-4" />, description: "Fast-growing posts" },
-  { id: "controversial", label: "Controversial", icon: <MessageCircle className="w-4 h-4" />, description: "Most debated posts" }
+  {
+    id: "hot",
+    label: "Hot",
+    icon: <TrendingUp className="w-4 h-4" />,
+    description: "Trending and popular posts",
+  },
+  {
+    id: "new",
+    label: "New",
+    icon: <Clock className="w-4 h-4" />,
+    description: "Latest posts first",
+  },
+  {
+    id: "top",
+    label: "Top",
+    icon: <Award className="w-4 h-4" />,
+    description: "Highest scored posts",
+  },
+  {
+    id: "rising",
+    label: "Rising",
+    icon: <TrendingUp className="w-4 h-4" />,
+    description: "Fast-growing posts",
+  },
+  {
+    id: "controversial",
+    label: "Controversial",
+    icon: <MessageCircle className="w-4 h-4" />,
+    description: "Most debated posts",
+  },
 ];
 
 const timeRanges = [
@@ -55,7 +100,7 @@ const timeRanges = [
   { id: "week", label: "Past Week" },
   { id: "month", label: "Past Month" },
   { id: "year", label: "Past Year" },
-  { id: "all", label: "All Time" }
+  { id: "all", label: "All Time" },
 ];
 
 export default function FeedFilters() {
@@ -68,31 +113,31 @@ export default function FeedFilters() {
     hideNSFW: true,
     minimumScore: 0,
     showSpoilers: false,
-    lowBandwidthMode: false
+    lowBandwidthMode: false,
   });
 
   const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
   const updateFilter = (key: keyof FilterState, value: any) => {
-    setFilters(prev => {
+    setFilters((prev) => {
       const updated = { ...prev, [key]: value };
-      
+
       // Auto-enable low bandwidth mode if only text posts is selected
       if (key === "onlyTextPosts" && value) {
         updated.lowBandwidthMode = true;
         updated.contentType = ["text"];
       }
-      
+
       return updated;
     });
   };
 
   const toggleContentType = (typeId: string) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
       contentType: prev.contentType.includes(typeId)
-        ? prev.contentType.filter(id => id !== typeId)
-        : [...prev.contentType, typeId]
+        ? prev.contentType.filter((id) => id !== typeId)
+        : [...prev.contentType, typeId],
     }));
   };
 
@@ -105,7 +150,7 @@ export default function FeedFilters() {
       hideNSFW: true,
       minimumScore: 0,
       showSpoilers: false,
-      lowBandwidthMode: false
+      lowBandwidthMode: false,
     });
   };
 
@@ -121,14 +166,22 @@ export default function FeedFilters() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="flex items-center justify-between h-14">
             <div className="flex items-center space-x-4">
-              <Link to="/home" className="p-2 hover:bg-wireframe-surface-hover rounded-md transition-colors">
+              <Link
+                to="/home"
+                className="p-2 hover:bg-wireframe-surface-hover rounded-md transition-colors"
+              >
                 <ChevronLeft className="w-5 h-5 text-wireframe-text-secondary" />
               </Link>
               <div className="flex items-center space-x-2">
                 <Filter className="w-5 h-5 text-wireframe-text-primary" />
-                <span className="font-medium text-wireframe-text-primary">Feed Filters</span>
+                <span className="font-medium text-wireframe-text-primary">
+                  Feed Filters
+                </span>
                 {activeFiltersCount > 0 && (
-                  <Badge variant="secondary" className="bg-reddit-orange text-white">
+                  <Badge
+                    variant="secondary"
+                    className="bg-reddit-orange text-white"
+                  >
                     {activeFiltersCount} active
                   </Badge>
                 )}
@@ -138,7 +191,11 @@ export default function FeedFilters() {
               <Button variant="outline" size="sm" onClick={resetFilters}>
                 Reset
               </Button>
-              <Button size="sm" onClick={applyFilters} className="bg-reddit-orange hover:bg-red-600 text-white">
+              <Button
+                size="sm"
+                onClick={applyFilters}
+                className="bg-reddit-orange hover:bg-red-600 text-white"
+              >
                 Apply
               </Button>
             </div>
@@ -153,8 +210,12 @@ export default function FeedFilters() {
             <div className="flex items-center space-x-3">
               <WifiOff className="w-5 h-5 text-blue-600" />
               <div>
-                <p className="font-medium text-blue-800">Low Bandwidth Mode Active</p>
-                <p className="text-sm text-blue-600">Images and videos are disabled to save data usage</p>
+                <p className="font-medium text-blue-800">
+                  Low Bandwidth Mode Active
+                </p>
+                <p className="text-sm text-blue-600">
+                  Images and videos are disabled to save data usage
+                </p>
               </div>
             </div>
           </Card>
@@ -177,8 +238,9 @@ export default function FeedFilters() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {contentTypes.map((type) => {
                   const isSelected = filters.contentType.includes(type.id);
-                  const isDisabled = filters.onlyTextPosts && type.id !== "text";
-                  
+                  const isDisabled =
+                    filters.onlyTextPosts && type.id !== "text";
+
                   return (
                     <button
                       key={type.id}
@@ -186,19 +248,24 @@ export default function FeedFilters() {
                       disabled={isDisabled}
                       className={`
                         p-4 rounded-lg border-2 transition-all duration-300 text-left
-                        ${isSelected && !isDisabled
-                          ? "border-reddit-orange bg-orange-50 shadow-md" 
-                          : "border-wireframe-border bg-wireframe-surface-secondary hover:border-wireframe-text-secondary"
+                        ${
+                          isSelected && !isDisabled
+                            ? "border-reddit-orange bg-orange-50 shadow-md"
+                            : "border-wireframe-border bg-wireframe-surface-secondary hover:border-wireframe-text-secondary"
                         }
                         ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:shadow-sm"}
                       `}
                     >
                       <div className="flex items-start space-x-3">
-                        <div className={`mt-1 ${isSelected ? "text-reddit-orange" : "text-wireframe-text-muted"}`}>
+                        <div
+                          className={`mt-1 ${isSelected ? "text-reddit-orange" : "text-wireframe-text-muted"}`}
+                        >
                           {type.icon}
                         </div>
                         <div>
-                          <h4 className={`font-medium ${isSelected ? "text-reddit-orange" : "text-wireframe-text-primary"}`}>
+                          <h4
+                            className={`font-medium ${isSelected ? "text-reddit-orange" : "text-wireframe-text-primary"}`}
+                          >
                             {type.label}
                           </h4>
                           <p className="text-sm text-wireframe-text-muted mt-1 leading-relaxed">
@@ -231,13 +298,19 @@ export default function FeedFilters() {
                   <div className="flex items-center space-x-3">
                     <WifiOff className="w-5 h-5 text-blue-600" />
                     <div>
-                      <h4 className="font-medium text-wireframe-text-primary">Only Text Posts</h4>
-                      <p className="text-sm text-wireframe-text-muted">Perfect for low bandwidth users</p>
+                      <h4 className="font-medium text-wireframe-text-primary">
+                        Only Text Posts
+                      </h4>
+                      <p className="text-sm text-wireframe-text-muted">
+                        Perfect for low bandwidth users
+                      </p>
                     </div>
                   </div>
                   <Switch
                     checked={filters.onlyTextPosts}
-                    onCheckedChange={(checked) => updateFilter("onlyTextPosts", checked)}
+                    onCheckedChange={(checked) =>
+                      updateFilter("onlyTextPosts", checked)
+                    }
                   />
                 </div>
 
@@ -246,13 +319,19 @@ export default function FeedFilters() {
                   <div className="flex items-center space-x-3">
                     <Wifi className="w-5 h-5 text-green-600" />
                     <div>
-                      <h4 className="font-medium text-wireframe-text-primary">Low Bandwidth Mode</h4>
-                      <p className="text-sm text-wireframe-text-muted">Reduce data usage and improve loading</p>
+                      <h4 className="font-medium text-wireframe-text-primary">
+                        Low Bandwidth Mode
+                      </h4>
+                      <p className="text-sm text-wireframe-text-muted">
+                        Reduce data usage and improve loading
+                      </p>
                     </div>
                   </div>
                   <Switch
                     checked={filters.lowBandwidthMode}
-                    onCheckedChange={(checked) => updateFilter("lowBandwidthMode", checked)}
+                    onCheckedChange={(checked) =>
+                      updateFilter("lowBandwidthMode", checked)
+                    }
                   />
                 </div>
 
@@ -263,13 +342,19 @@ export default function FeedFilters() {
                       <span className="text-white text-xs font-bold">18+</span>
                     </div>
                     <div>
-                      <h4 className="font-medium text-wireframe-text-primary">Hide NSFW Content</h4>
-                      <p className="text-sm text-wireframe-text-muted">Filter adult content from feed</p>
+                      <h4 className="font-medium text-wireframe-text-primary">
+                        Hide NSFW Content
+                      </h4>
+                      <p className="text-sm text-wireframe-text-muted">
+                        Filter adult content from feed
+                      </p>
                     </div>
                   </div>
                   <Switch
                     checked={filters.hideNSFW}
-                    onCheckedChange={(checked) => updateFilter("hideNSFW", checked)}
+                    onCheckedChange={(checked) =>
+                      updateFilter("hideNSFW", checked)
+                    }
                   />
                 </div>
 
@@ -280,13 +365,19 @@ export default function FeedFilters() {
                       <span className="text-white text-xs font-bold">!</span>
                     </div>
                     <div>
-                      <h4 className="font-medium text-wireframe-text-primary">Show Spoiler Content</h4>
-                      <p className="text-sm text-wireframe-text-muted">Automatically reveal spoiler tags</p>
+                      <h4 className="font-medium text-wireframe-text-primary">
+                        Show Spoiler Content
+                      </h4>
+                      <p className="text-sm text-wireframe-text-muted">
+                        Automatically reveal spoiler tags
+                      </p>
                     </div>
                   </div>
                   <Switch
                     checked={filters.showSpoilers}
-                    onCheckedChange={(checked) => updateFilter("showSpoilers", checked)}
+                    onCheckedChange={(checked) =>
+                      updateFilter("showSpoilers", checked)
+                    }
                   />
                 </div>
               </div>
@@ -308,18 +399,23 @@ export default function FeedFilters() {
                     onClick={() => updateFilter("sortBy", option.id)}
                     className={`
                       w-full p-4 rounded-lg border-2 transition-all duration-300 text-left
-                      ${filters.sortBy === option.id
-                        ? "border-reddit-orange bg-orange-50 shadow-md" 
-                        : "border-wireframe-border bg-wireframe-surface-secondary hover:border-wireframe-text-secondary hover:shadow-sm"
+                      ${
+                        filters.sortBy === option.id
+                          ? "border-reddit-orange bg-orange-50 shadow-md"
+                          : "border-wireframe-border bg-wireframe-surface-secondary hover:border-wireframe-text-secondary hover:shadow-sm"
                       }
                     `}
                   >
                     <div className="flex items-center space-x-3">
-                      <div className={`${filters.sortBy === option.id ? "text-reddit-orange" : "text-wireframe-text-muted"}`}>
+                      <div
+                        className={`${filters.sortBy === option.id ? "text-reddit-orange" : "text-wireframe-text-muted"}`}
+                      >
                         {option.icon}
                       </div>
                       <div>
-                        <h4 className={`font-medium ${filters.sortBy === option.id ? "text-reddit-orange" : "text-wireframe-text-primary"}`}>
+                        <h4
+                          className={`font-medium ${filters.sortBy === option.id ? "text-reddit-orange" : "text-wireframe-text-primary"}`}
+                        >
                           {option.label}
                         </h4>
                         <p className="text-sm text-wireframe-text-muted mt-1">
@@ -353,9 +449,10 @@ export default function FeedFilters() {
                       onClick={() => updateFilter("timeRange", range.id)}
                       className={`
                         p-3 rounded-lg border-2 transition-all duration-300 text-center
-                        ${filters.timeRange === range.id
-                          ? "border-reddit-orange bg-orange-50 text-reddit-orange" 
-                          : "border-wireframe-border bg-wireframe-surface-secondary text-wireframe-text-primary hover:border-wireframe-text-secondary"
+                        ${
+                          filters.timeRange === range.id
+                            ? "border-reddit-orange bg-orange-50 text-reddit-orange"
+                            : "border-wireframe-border bg-wireframe-surface-secondary text-wireframe-text-primary hover:border-wireframe-text-secondary"
                         }
                       `}
                     >
@@ -374,14 +471,18 @@ export default function FeedFilters() {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
-                  <span className="text-sm text-wireframe-text-muted min-w-0">Hide posts with less than:</span>
+                  <span className="text-sm text-wireframe-text-muted min-w-0">
+                    Hide posts with less than:
+                  </span>
                   <input
                     type="range"
                     min="0"
                     max="100"
                     step="5"
                     value={filters.minimumScore}
-                    onChange={(e) => updateFilter("minimumScore", parseInt(e.target.value))}
+                    onChange={(e) =>
+                      updateFilter("minimumScore", parseInt(e.target.value))
+                    }
                     className="flex-1 h-2 bg-wireframe-surface-secondary rounded-lg appearance-none cursor-pointer"
                   />
                   <span className="text-sm font-medium text-wireframe-text-primary min-w-0 text-right">
@@ -398,7 +499,7 @@ export default function FeedFilters() {
 
         {/* Apply Button (Mobile) */}
         <div className="sticky bottom-4 mt-6">
-          <Button 
+          <Button
             onClick={applyFilters}
             className="w-full h-12 bg-reddit-orange hover:bg-red-600 text-white shadow-lg"
           >
