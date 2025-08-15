@@ -713,11 +713,11 @@ export default function Home() {
             <span className="text-xs mt-1">Search</span>
           </Link>
           <Link
-            to="/create"
+            to="/favorites"
             className="flex flex-col items-center p-2 text-wireframe-text-muted hover:text-reddit-orange transition-colors"
           >
-            <Plus className="w-5 h-5" />
-            <span className="text-xs mt-1">Create</span>
+            <Star className="w-5 h-5" />
+            <span className="text-xs mt-1">Favorites</span>
           </Link>
           <Link
             to="/notifications"
