@@ -28,16 +28,80 @@ const App = () => (
           <Route path="/search" element={<Search />} />
 
           {/* Placeholder routes */}
-          <Route path="/login" element={<Placeholder title="Login" description="Login page will allow users to sign in to their Reddit account." />} />
-          <Route path="/terms" element={<Placeholder title="Terms of Service" description="User agreement and terms of service for Reddit." />} />
-          <Route path="/privacy" element={<Placeholder title="Privacy Policy" description="Privacy policy explaining how Reddit handles user data." />} />
-          <Route path="/create" element={<Placeholder title="Create Post" description="Create a new post in your favorite subreddit." />} />
-          <Route path="/notifications" element={<Placeholder title="Notifications" description="View your notifications, replies, and mentions." />} />
-          <Route path="/profile" element={<Placeholder title="Profile" description="View and edit your Reddit profile." />} />
+          <Route
+            path="/login"
+            element={
+              <Placeholder
+                title="Login"
+                description="Login page will allow users to sign in to their Reddit account."
+              />
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <Placeholder
+                title="Terms of Service"
+                description="User agreement and terms of service for Reddit."
+              />
+            }
+          />
+          <Route
+            path="/privacy"
+            element={
+              <Placeholder
+                title="Privacy Policy"
+                description="Privacy policy explaining how Reddit handles user data."
+              />
+            }
+          />
+          <Route
+            path="/create"
+            element={
+              <Placeholder
+                title="Create Post"
+                description="Create a new post in your favorite subreddit."
+              />
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <Placeholder
+                title="Notifications"
+                description="View your notifications, replies, and mentions."
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Placeholder
+                title="Profile"
+                description="View and edit your Reddit profile."
+              />
+            }
+          />
 
           {/* Dynamic routes */}
-          <Route path="/r/:subreddit" element={<Placeholder title="Subreddit" description="View posts and discussions in this community." />} />
-          <Route path="/u/:username" element={<Placeholder title="User Profile" description="View this user's posts, comments, and profile information." />} />
+          <Route
+            path="/r/:subreddit"
+            element={
+              <Placeholder
+                title="Subreddit"
+                description="View posts and discussions in this community."
+              />
+            }
+          />
+          <Route
+            path="/u/:username"
+            element={
+              <Placeholder
+                title="User Profile"
+                description="View this user's posts, comments, and profile information."
+              />
+            }
+          />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

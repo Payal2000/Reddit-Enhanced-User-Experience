@@ -4,20 +4,20 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { 
-  Search, 
-  Filter, 
-  TrendingUp, 
-  Plus, 
-  ArrowUp, 
-  ArrowDown, 
-  MessageCircle, 
-  Share, 
+import {
+  Search,
+  Filter,
+  TrendingUp,
+  Plus,
+  ArrowUp,
+  ArrowDown,
+  MessageCircle,
+  Share,
   Bookmark,
   Home as HomeIcon,
   Bell,
   User,
-  Menu
+  Menu,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -28,7 +28,8 @@ const posts = [
     author: "u/techuser123",
     time: "2h ago",
     title: "New AI breakthrough shows promise for medical diagnosis",
-    content: "AI-generated summary: Researchers have developed a new machine learning model that can diagnose rare diseases with 95% accuracy, potentially revolutionizing medical care in underserved areas.",
+    content:
+      "AI-generated summary: Researchers have developed a new machine learning model that can diagnose rare diseases with 95% accuracy, potentially revolutionizing medical care in underserved areas.",
     upvotes: 2847,
     comments: 234,
     image: null,
@@ -39,7 +40,8 @@ const posts = [
     author: "u/developer_jane",
     time: "4h ago",
     title: "Why TypeScript is becoming essential for large-scale applications",
-    content: "AI-generated summary: This post discusses the benefits of TypeScript in enterprise environments, including better code maintainability, fewer runtime errors, and improved developer experience.",
+    content:
+      "AI-generated summary: This post discusses the benefits of TypeScript in enterprise environments, including better code maintainability, fewer runtime errors, and improved developer experience.",
     upvotes: 1523,
     comments: 189,
     image: null,
@@ -50,7 +52,8 @@ const posts = [
     author: "u/researcher_mike",
     time: "6h ago",
     title: "Climate change study reveals unexpected ecosystem adaptations",
-    content: "AI-generated summary: New research shows that certain plant species are adapting to climate change faster than predicted, offering hope for ecosystem resilience.",
+    content:
+      "AI-generated summary: New research shows that certain plant species are adapting to climate change faster than predicted, offering hope for ecosystem resilience.",
     upvotes: 4521,
     comments: 567,
     image: null,
@@ -74,9 +77,21 @@ const trendingTopics = [
 ];
 
 const relatedCommunities = [
-  { name: "r/MachineLearning", members: "2.1M", description: "Machine learning discussions and research" },
-  { name: "r/ArtificialIntelligence", members: "856K", description: "AI news and discussions" },
-  { name: "r/DataScience", members: "1.2M", description: "Data science community" },
+  {
+    name: "r/MachineLearning",
+    members: "2.1M",
+    description: "Machine learning discussions and research",
+  },
+  {
+    name: "r/ArtificialIntelligence",
+    members: "856K",
+    description: "AI news and discussions",
+  },
+  {
+    name: "r/DataScience",
+    members: "1.2M",
+    description: "Data science community",
+  },
 ];
 
 export default function Home() {
@@ -84,7 +99,7 @@ export default function Home() {
 
   const formatNumber = (num: number) => {
     if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'k';
+      return (num / 1000).toFixed(1) + "k";
     }
     return num.toString();
   };
@@ -97,7 +112,7 @@ export default function Home() {
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
             <div className="flex items-center space-x-4">
-              <button 
+              <button
                 className="md:hidden p-2 hover:bg-wireframe-surface-hover rounded-md"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
@@ -107,7 +122,9 @@ export default function Home() {
                 <div className="w-8 h-8 rounded-full bg-reddit-orange flex items-center justify-center">
                   <span className="text-white font-bold text-sm">r</span>
                 </div>
-                <span className="font-bold text-lg text-wireframe-text-primary hidden sm:block">reddit</span>
+                <span className="font-bold text-lg text-wireframe-text-primary hidden sm:block">
+                  reddit
+                </span>
               </Link>
             </div>
 
@@ -115,13 +132,13 @@ export default function Home() {
             <div className="flex-1 max-w-2xl mx-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-wireframe-text-muted" />
-                <Input 
-                  placeholder="Search Reddit" 
+                <Input
+                  placeholder="Search Reddit"
                   className="pl-10 pr-12 bg-wireframe-surface-secondary border-wireframe-border"
                 />
-                <Button 
-                  size="sm" 
-                  variant="ghost" 
+                <Button
+                  size="sm"
+                  variant="ghost"
                   className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0"
                   asChild
                 >
@@ -151,7 +168,9 @@ export default function Home() {
 
       <div className="max-w-7xl mx-auto flex">
         {/* Left Sidebar */}
-        <aside className={`w-64 border-r border-wireframe-border bg-wireframe-surface-primary p-4 fixed left-0 top-14 h-full z-40 transform transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:top-0 md:transform-none md:block`}>
+        <aside
+          className={`w-64 border-r border-wireframe-border bg-wireframe-surface-primary p-4 fixed left-0 top-14 h-full z-40 transform transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"} md:relative md:top-0 md:transform-none md:block`}
+        >
           {/* Pinned Subreddits */}
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-wireframe-text-secondary mb-3 uppercase tracking-wide">
@@ -165,7 +184,9 @@ export default function Home() {
                   className="flex items-center justify-between p-2 rounded-md hover:bg-wireframe-surface-hover text-wireframe-text-primary"
                 >
                   <span className="text-sm">{subreddit.name}</span>
-                  <span className="text-xs text-wireframe-text-muted">{subreddit.members}</span>
+                  <span className="text-xs text-wireframe-text-muted">
+                    {subreddit.members}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -196,9 +217,16 @@ export default function Home() {
           <div className="max-w-2xl">
             {/* Feed Header */}
             <div className="mb-6">
-              <h1 className="text-xl font-semibold text-wireframe-text-primary mb-2">Home Feed</h1>
+              <h1 className="text-xl font-semibold text-wireframe-text-primary mb-2">
+                Home Feed
+              </h1>
               <div className="flex space-x-2">
-                <Badge variant="default" className="bg-wireframe-text-primary text-white">Hot</Badge>
+                <Badge
+                  variant="default"
+                  className="bg-wireframe-text-primary text-white"
+                >
+                  Hot
+                </Badge>
                 <Badge variant="outline">New</Badge>
                 <Badge variant="outline">Top</Badge>
                 <Badge variant="outline">Rising</Badge>
@@ -208,17 +236,28 @@ export default function Home() {
             {/* Posts */}
             <div className="space-y-4">
               {posts.map((post) => (
-                <Card key={post.id} className="border border-wireframe-border bg-wireframe-surface-primary">
+                <Card
+                  key={post.id}
+                  className="border border-wireframe-border bg-wireframe-surface-primary"
+                >
                   <div className="flex">
                     {/* Vote Section */}
                     <div className="flex flex-col items-center p-3 bg-wireframe-surface-secondary">
-                      <Button variant="ghost" size="icon" className="h-8 w-8 mb-1">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 mb-1"
+                      >
                         <ArrowUp className="w-4 h-4" />
                       </Button>
                       <span className="text-sm font-medium text-wireframe-text-primary">
                         {formatNumber(post.upvotes)}
                       </span>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 mt-1">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 mt-1"
+                      >
                         <ArrowDown className="w-4 h-4" />
                       </Button>
                     </div>
@@ -227,12 +266,18 @@ export default function Home() {
                     <div className="flex-1 p-4">
                       {/* Post Header */}
                       <div className="flex items-center text-sm text-wireframe-text-muted mb-2">
-                        <Link to={`/r/${post.subreddit.slice(2)}`} className="font-medium hover:underline">
+                        <Link
+                          to={`/r/${post.subreddit.slice(2)}`}
+                          className="font-medium hover:underline"
+                        >
                           {post.subreddit}
                         </Link>
                         <span className="mx-1">•</span>
                         <span>Posted by</span>
-                        <Link to={`/u/${post.author.slice(2)}`} className="ml-1 hover:underline">
+                        <Link
+                          to={`/u/${post.author.slice(2)}`}
+                          className="ml-1 hover:underline"
+                        >
                           {post.author}
                         </Link>
                         <span className="mx-1">•</span>
@@ -247,7 +292,10 @@ export default function Home() {
                       {/* AI Summary */}
                       <div className="bg-wireframe-surface-secondary p-3 rounded-md mb-4 border-l-4 border-reddit-orange">
                         <div className="flex items-center mb-2">
-                          <Badge variant="secondary" className="text-xs bg-reddit-orange text-white">
+                          <Badge
+                            variant="secondary"
+                            className="text-xs bg-reddit-orange text-white"
+                          >
                             AI Summary
                           </Badge>
                         </div>
@@ -282,19 +330,28 @@ export default function Home() {
         {/* Right Sidebar */}
         <aside className="w-80 p-4 hidden xl:block">
           <Card className="border border-wireframe-border bg-wireframe-surface-primary p-4">
-            <h3 className="font-semibold text-wireframe-text-primary mb-4">Related Communities</h3>
+            <h3 className="font-semibold text-wireframe-text-primary mb-4">
+              Related Communities
+            </h3>
             <div className="space-y-3">
               {relatedCommunities.map((community) => (
-                <div key={community.name} className="flex items-start justify-between">
+                <div
+                  key={community.name}
+                  className="flex items-start justify-between"
+                >
                   <div className="flex-1">
-                    <Link 
+                    <Link
                       to={`/r/${community.name.slice(2)}`}
                       className="font-medium text-wireframe-text-primary hover:underline"
                     >
                       {community.name}
                     </Link>
-                    <p className="text-xs text-wireframe-text-muted mt-1">{community.description}</p>
-                    <p className="text-xs text-wireframe-text-muted">{community.members} members</p>
+                    <p className="text-xs text-wireframe-text-muted mt-1">
+                      {community.description}
+                    </p>
+                    <p className="text-xs text-wireframe-text-muted">
+                      {community.members} members
+                    </p>
                   </div>
                   <Button size="sm" variant="outline" className="ml-2">
                     Join
@@ -309,23 +366,38 @@ export default function Home() {
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-wireframe-surface-primary border-t border-wireframe-border">
         <div className="flex items-center justify-around h-16">
-          <Link to="/home" className="flex flex-col items-center p-2 text-wireframe-text-primary">
+          <Link
+            to="/home"
+            className="flex flex-col items-center p-2 text-wireframe-text-primary"
+          >
             <HomeIcon className="w-5 h-5" />
             <span className="text-xs mt-1">Home</span>
           </Link>
-          <Link to="/search" className="flex flex-col items-center p-2 text-wireframe-text-muted">
+          <Link
+            to="/search"
+            className="flex flex-col items-center p-2 text-wireframe-text-muted"
+          >
             <Search className="w-5 h-5" />
             <span className="text-xs mt-1">Search</span>
           </Link>
-          <Link to="/create" className="flex flex-col items-center p-2 text-wireframe-text-muted">
+          <Link
+            to="/create"
+            className="flex flex-col items-center p-2 text-wireframe-text-muted"
+          >
             <Plus className="w-5 h-5" />
             <span className="text-xs mt-1">Create</span>
           </Link>
-          <Link to="/notifications" className="flex flex-col items-center p-2 text-wireframe-text-muted">
+          <Link
+            to="/notifications"
+            className="flex flex-col items-center p-2 text-wireframe-text-muted"
+          >
             <Bell className="w-5 h-5" />
             <span className="text-xs mt-1">Notifications</span>
           </Link>
-          <Link to="/profile" className="flex flex-col items-center p-2 text-wireframe-text-muted">
+          <Link
+            to="/profile"
+            className="flex flex-col items-center p-2 text-wireframe-text-muted"
+          >
             <User className="w-5 h-5" />
             <span className="text-xs mt-1">Profile</span>
           </Link>
@@ -334,7 +406,7 @@ export default function Home() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />

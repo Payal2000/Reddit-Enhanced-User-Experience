@@ -28,10 +28,10 @@ export default function InterestSelection() {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
   const toggleInterest = (interestId: string) => {
-    setSelectedInterests(prev => 
-      prev.includes(interestId) 
-        ? prev.filter(id => id !== interestId)
-        : [...prev, interestId]
+    setSelectedInterests((prev) =>
+      prev.includes(interestId)
+        ? prev.filter((id) => id !== interestId)
+        : [...prev, interestId],
     );
   };
 
@@ -40,12 +40,19 @@ export default function InterestSelection() {
       {/* Header */}
       <header className="border-b border-wireframe-border bg-wireframe-surface-primary">
         <div className="flex items-center justify-between p-4 max-w-4xl mx-auto">
-          <Link to="/" className="p-2 hover:bg-wireframe-surface-hover rounded-md">
+          <Link
+            to="/"
+            className="p-2 hover:bg-wireframe-surface-hover rounded-md"
+          >
             <ChevronLeft className="w-5 h-5 text-wireframe-text-secondary" />
           </Link>
           <div className="text-center">
-            <h1 className="text-lg font-semibold text-wireframe-text-primary">Choose your interests</h1>
-            <p className="text-sm text-wireframe-text-muted">Select at least 3 topics you're interested in</p>
+            <h1 className="text-lg font-semibold text-wireframe-text-primary">
+              Choose your interests
+            </h1>
+            <p className="text-sm text-wireframe-text-muted">
+              Select at least 3 topics you're interested in
+            </p>
           </div>
           <div className="w-9" /> {/* Spacer for centering */}
         </div>
@@ -64,9 +71,10 @@ export default function InterestSelection() {
                   onClick={() => toggleInterest(interest.id)}
                   className={`
                     relative p-4 rounded-lg border-2 transition-all duration-200 text-center hover:border-wireframe-text-secondary
-                    ${isSelected 
-                      ? "border-wireframe-text-primary bg-wireframe-text-primary text-white" 
-                      : "border-wireframe-border bg-wireframe-surface-secondary text-wireframe-text-primary hover:bg-wireframe-surface-hover"
+                    ${
+                      isSelected
+                        ? "border-wireframe-text-primary bg-wireframe-text-primary text-white"
+                        : "border-wireframe-border bg-wireframe-surface-secondary text-wireframe-text-primary hover:bg-wireframe-surface-hover"
                     }
                   `}
                 >
@@ -84,16 +92,19 @@ export default function InterestSelection() {
 
           {/* Selected Count */}
           <div className="text-center mb-6">
-            <Badge 
+            <Badge
               variant={selectedInterests.length >= 3 ? "default" : "secondary"}
               className="px-3 py-1"
             >
-              {selectedInterests.length} selected {selectedInterests.length >= 3 ? "✓" : `(${3 - selectedInterests.length} more needed)`}
+              {selectedInterests.length} selected{" "}
+              {selectedInterests.length >= 3
+                ? "✓"
+                : `(${3 - selectedInterests.length} more needed)`}
             </Badge>
           </div>
 
           {/* Continue Button */}
-          <Button 
+          <Button
             className={`w-full h-12 transition-all duration-200 ${
               selectedInterests.length >= 3
                 ? "bg-wireframe-text-primary hover:bg-wireframe-text-secondary text-white"
@@ -111,8 +122,8 @@ export default function InterestSelection() {
 
           {/* Skip Link */}
           <div className="text-center mt-4">
-            <Link 
-              to="/home" 
+            <Link
+              to="/home"
               className="text-wireframe-text-muted hover:text-wireframe-text-secondary text-sm hover:underline"
             >
               Skip for now
