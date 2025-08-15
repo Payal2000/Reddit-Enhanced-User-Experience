@@ -63,8 +63,22 @@ export default function Onboarding() {
           </Button>
         </div>
 
-        {/* Login Link */}
+        {/* Demo Link */}
         <div className="text-center mt-6">
+          <Button
+            variant="outline"
+            className="w-full h-10 border-2 border-reddit-orange text-reddit-orange hover:bg-reddit-orange hover:text-white transition-colors mb-4"
+            asChild
+          >
+            <Link to="/post/1">
+              <MessageCircle className="w-4 h-4 mr-2" />
+              View Enhanced Comment Section Demo
+            </Link>
+          </Button>
+        </div>
+
+        {/* Login Link */}
+        <div className="text-center">
           <p className="text-wireframe-text-muted text-sm">
             Already have an account?{" "}
             <Link
