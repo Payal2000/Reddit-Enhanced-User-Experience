@@ -23,11 +23,8 @@ export default function AccessibilityToolbar() {
   const [isMinimized, setIsMinimized] = useState(true);
   const {
     settings,
-    toggleDarkMode,
-    toggleHighContrast,
-    toggleLargeText,
-    toggleReduceMotion,
-    resetSettings,
+    toggleSetting,
+    updateSettings,
   } = useAccessibility();
 
   const activeSettingsCount = Object.values(settings).filter(Boolean).length;
@@ -89,7 +86,16 @@ export default function AccessibilityToolbar() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={resetSettings}
+                onClick={() => updateSettings({
+                  largeText: false,
+                  highContrast: false,
+                  reduceMotion: false,
+                  screenReader: false,
+                  keyboardNavigation: true,
+                  focusIndicators: true,
+                  colorBlindFriendly: false,
+                  dyslexiaFriendly: false,
+                })}
                 className="text-xs h-7 px-2 hover:bg-wireframe-surface-hover"
               >
                 <RotateCcw className="w-3 h-3 mr-1" />
@@ -103,7 +109,7 @@ export default function AccessibilityToolbar() {
               {/* Dark Mode */}
               <div className="flex items-center justify-between p-3 rounded-lg bg-wireframe-surface-secondary">
                 <div className="flex items-center space-x-3">
-                  {settings.darkMode ? (
+                  {false ? (
                     <Moon className="w-5 h-5 text-blue-600" />
                   ) : (
                     <Sun className="w-5 h-5 text-yellow-600" />
@@ -118,8 +124,8 @@ export default function AccessibilityToolbar() {
                   </div>
                 </div>
                 <Switch
-                  checked={settings.darkMode}
-                  onCheckedChange={toggleDarkMode}
+                  checked={false}
+                                      onCheckedChange={() => toggleSetting('largeText')}
                   aria-label="Toggle dark mode"
                 />
               </div>
@@ -139,7 +145,7 @@ export default function AccessibilityToolbar() {
                 </div>
                 <Switch
                   checked={settings.highContrast}
-                  onCheckedChange={toggleHighContrast}
+                                      onCheckedChange={() => toggleSetting('highContrast')}
                   aria-label="Toggle high contrast"
                 />
               </div>
@@ -159,7 +165,7 @@ export default function AccessibilityToolbar() {
                 </div>
                 <Switch
                   checked={settings.largeText}
-                  onCheckedChange={toggleLargeText}
+                                      onCheckedChange={() => toggleSetting('largeText')}
                   aria-label="Toggle large text"
                 />
               </div>
@@ -179,7 +185,7 @@ export default function AccessibilityToolbar() {
                 </div>
                 <Switch
                   checked={settings.reduceMotion}
-                  onCheckedChange={toggleReduceMotion}
+                                      onCheckedChange={() => toggleSetting('reduceMotion')}
                   aria-label="Toggle reduce motion"
                 />
               </div>
@@ -191,7 +197,7 @@ export default function AccessibilityToolbar() {
                     Active Accessibility Features
                   </div>
                   <div className="flex flex-wrap gap-1">
-                    {settings.darkMode && (
+                    {false && (
                       <Badge
                         variant="secondary"
                         className="text-xs bg-blue-100 text-blue-800"
@@ -244,7 +250,7 @@ export default function AccessibilityToolbar() {
                 {activeSettingsCount !== 1 ? "s" : ""} active
               </div>
               <div className="flex space-x-1">
-                {settings.darkMode && (
+                {false && (
                   <Moon className="w-4 h-4 text-blue-600" />
                 )}
                 {settings.highContrast && (

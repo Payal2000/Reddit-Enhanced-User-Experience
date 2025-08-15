@@ -31,6 +31,8 @@ import {
   Target,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { usePosts, useSubreddits } from "@/hooks/use-reddit-data";
+import PostCard from "@/components/PostCard";
 
 const posts = [
   {
@@ -154,6 +156,10 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [collapsedClusters, setCollapsedClusters] = useState<string[]>([]);
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
+  
+  // Data fetching
+  const { data: posts = [], isLoading: postsLoading, error: postsError } = usePosts();
+  const { data: subreddits = [], isLoading: subredditsLoading } = useSubreddits();
 
   const formatNumber = (num: number) => {
     if (num >= 1000000) {
@@ -186,230 +192,47 @@ export default function Home() {
     }
   };
 
-  const renderPostsByCluster = () => {
-    return topicClusters.map((cluster) => {
-      const clusterPosts = posts.filter(
-        (post) => post.cluster === cluster.name,
-      );
-      const isCollapsed = collapsedClusters.includes(cluster.name);
-
-      if (clusterPosts.length === 0) return null;
-
+  const renderPosts = () => {
+    if (postsLoading) {
       return (
-        <div key={cluster.name} className="mb-6">
-          {/* Cluster Header */}
-          <div className="flex items-center justify-between mb-4 p-3 bg-wireframe-surface-secondary rounded-lg border border-wireframe-border">
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => toggleCluster(cluster.name)}
-                className="p-1 hover:bg-wireframe-surface-hover rounded transition-colors"
-              >
-                {isCollapsed ? (
-                  <ChevronRight className="w-4 h-4 text-wireframe-text-muted" />
-                ) : (
-                  <ChevronDown className="w-4 h-4 text-wireframe-text-muted" />
-                )}
-              </button>
-              <h3 className="font-semibold text-wireframe-text-primary">
-                {cluster.name}
-              </h3>
-              <Badge variant="secondary" className="text-xs">
-                {cluster.posts} posts
-              </Badge>
-              {cluster.trend === "trending" && (
-                <Badge className="bg-reddit-orange text-white text-xs">
-                  <TrendingUp className="w-3 h-3 mr-1" />
-                  Trending
-                </Badge>
-              )}
-            </div>
-            <Button variant="ghost" size="sm" className="text-xs">
-              View All
-            </Button>
-          </div>
-
-          {/* Cluster Posts */}
-          {!isCollapsed && (
-            <div className="space-y-4 ml-4">
-              {clusterPosts.map((post) => (
-                <Card
-                  key={post.id}
-                  className="border border-wireframe-border bg-wireframe-surface-primary hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="flex">
-                    {/* Vote Section */}
-                    <div className="flex flex-col items-center p-3 bg-wireframe-surface-secondary">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 mb-1 hover:bg-green-100 hover:text-green-600 transition-colors"
-                      >
-                        <ArrowUp className="w-4 h-4" />
-                      </Button>
-                      <span className="text-sm font-medium text-wireframe-text-primary">
-                        {formatNumber(post.upvotes)}
-                      </span>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 mt-1 hover:bg-red-100 hover:text-red-600 transition-colors"
-                      >
-                        <ArrowDown className="w-4 h-4" />
-                      </Button>
-                    </div>
-
-                    {/* Post Content */}
-                    <div className="flex-1 p-4">
-                      {/* Post Header */}
-                      <div className="flex items-center text-sm text-wireframe-text-muted mb-2">
-                        <Link
-                          to={`/r/${post.subreddit.slice(2)}`}
-                          className="font-medium hover:underline hover:text-reddit-orange transition-colors"
-                        >
-                          {post.subreddit}
-                        </Link>
-                        <span className="mx-1">•</span>
-                        <span>Posted by</span>
-                        <Link
-                          to={`/u/${post.author.slice(2)}`}
-                          className="ml-1 hover:underline flex items-center space-x-1"
-                        >
-                          <span>{post.author}</span>
-                          {/* Author Badges */}
-                          <div className="flex items-center space-x-1 ml-2">
-                            {post.authorBadges.map((badge, idx) => (
-                              <div
-                                key={idx}
-                                className={`w-4 h-4 rounded-full flex items-center justify-center ${getBadgeColor(badge)}`}
-                                title={badge}
-                              >
-                                <Award className="w-2 h-2 text-white" />
-                              </div>
-                            ))}
-                            <span className="text-xs text-wireframe-text-muted">
-                              ({post.authorKarma})
-                            </span>
-                          </div>
-                        </Link>
-                        <span className="mx-1">•</span>
-                        <span>{post.time}</span>
-                        {post.isPersonalized && (
-                          <Badge className="ml-2 bg-purple-100 text-purple-700 text-xs">
-                            <Target className="w-3 h-3 mr-1" />
-                            For You
-                          </Badge>
-                        )}
-                      </div>
-
-                      {/* Post Title */}
-                      <Link to={`/post/${post.id}`}>
-                        <h2 className="text-lg font-medium text-wireframe-text-primary mb-3 leading-tight hover:text-reddit-orange transition-colors cursor-pointer">
-                          {post.title}
-                        </h2>
-                      </Link>
-
-                      {/* Enhanced AI Summary Card */}
-                      <div className="bg-gradient-to-r from-wireframe-surface-secondary to-wireframe-surface-hover p-4 rounded-lg mb-4 border-l-4 border-reddit-orange">
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center space-x-2">
-                            <Sparkles className="w-4 h-4 text-reddit-orange" />
-                            <Badge
-                              variant="secondary"
-                              className="text-xs bg-reddit-orange text-white"
-                            >
-                              AI Summary
-                            </Badge>
-                            <div className="flex items-center space-x-1">
-                              <Zap className="w-3 h-3 text-green-500" />
-                              <span className="text-xs text-wireframe-text-muted">
-                                {post.aiInsights.confidence}% confidence
-                              </span>
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-2 text-xs text-wireframe-text-muted">
-                            <Clock className="w-3 h-3" />
-                            {post.aiInsights.readTime}
-                          </div>
-                        </div>
-
-                        <p className="text-sm text-wireframe-text-secondary leading-relaxed mb-3">
-                          {post.content}
-                        </p>
-
-                        {/* AI Insights */}
-                        <div className="flex flex-wrap gap-2 mb-2">
-                          {post.aiInsights.keyTopics.map((topic, idx) => (
-                            <Badge
-                              key={idx}
-                              variant="outline"
-                              className="text-xs"
-                            >
-                              {topic}
-                            </Badge>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center justify-between text-xs">
-                          <span
-                            className={`px-2 py-1 rounded text-white ${
-                              post.aiInsights.sentiment === "positive"
-                                ? "bg-green-500"
-                                : post.aiInsights.sentiment === "hopeful"
-                                  ? "bg-blue-500"
-                                  : "bg-gray-500"
-                            }`}
-                          >
-                            {post.aiInsights.sentiment}
-                          </span>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-xs h-6"
-                          >
-                            Read Full Article
-                          </Button>
-                        </div>
-                      </div>
-
-                      {/* Post Actions */}
-                      <div className="flex items-center space-x-4 text-wireframe-text-muted">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 px-2 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                          asChild
-                        >
-                          <Link to={`/post/${post.id}`}>
-                            <MessageCircle className="w-4 h-4 mr-1" />
-                            {formatNumber(post.comments)} Comments
-                          </Link>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 px-2 hover:bg-green-50 hover:text-green-600 transition-colors"
-                        >
-                          <Share className="w-4 h-4 mr-1" />
-                          Share
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 px-2 hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
-                        >
-                          <Bookmark className="w-4 h-4 mr-1" />
-                          Save
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          )}
+        <div className="space-y-4">
+          {[...Array(3)].map((_, i) => (
+            <Card key={i} className="border border-wireframe-border bg-wireframe-surface-primary p-4">
+              <div className="animate-pulse">
+                <div className="h-4 bg-wireframe-surface-secondary rounded mb-2"></div>
+                <div className="h-6 bg-wireframe-surface-secondary rounded mb-4"></div>
+                <div className="h-20 bg-wireframe-surface-secondary rounded"></div>
+              </div>
+            </Card>
+          ))}
         </div>
       );
-    });
+    }
+
+    if (postsError) {
+      return (
+        <Card className="border border-red-200 bg-red-50 p-4">
+          <div className="text-center">
+            <p className="text-red-600">Failed to load posts. Please try again.</p>
+            <Button 
+              variant="outline" 
+              className="mt-2"
+              onClick={() => window.location.reload()}
+            >
+              Retry
+            </Button>
+          </div>
+        </Card>
+      );
+    }
+
+    return (
+      <div className="space-y-4">
+        {posts.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -663,8 +486,8 @@ export default function Home() {
               </div>
             </Card>
 
-            {/* Clustered Posts */}
-            {renderPostsByCluster()}
+            {/* Posts Feed */}
+            {renderPosts()}
           </div>
         </main>
 
