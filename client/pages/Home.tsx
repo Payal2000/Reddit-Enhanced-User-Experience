@@ -474,6 +474,26 @@ export default function Home() {
                 variant="ghost"
                 size="icon"
                 className="hover:bg-wireframe-surface-hover transition-colors"
+                asChild
+              >
+                <Link to="/filters">
+                  <Filter className="w-5 h-5" />
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-wireframe-surface-hover transition-colors"
+                asChild
+              >
+                <Link to="/favorites">
+                  <Star className="w-5 h-5" />
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-wireframe-surface-hover transition-colors"
               >
                 <Bell className="w-5 h-5" />
               </Button>
