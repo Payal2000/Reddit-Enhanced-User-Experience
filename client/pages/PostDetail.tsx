@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { AnimatedCard, TooltipHover } from "@/components/Microinteractions";
+import AwardsModal from "@/components/AwardsModal";
+import LongPressContextMenu from "@/components/LongPressContextMenu";
 
 interface Comment {
   id: string;
