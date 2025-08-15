@@ -9,6 +9,7 @@ import Onboarding from "./pages/Onboarding";
 import InterestSelection from "./pages/InterestSelection";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
+import PostDetail from "./pages/PostDetail";
 import Placeholder from "./pages/Placeholder";
 import NotFound from "./pages/NotFound";
 
@@ -28,9 +29,10 @@ export default function App() {
             </a>
             <Routes>
               <Route path="/" element={<Onboarding />} />
-              <Route path="/interests" element={<InterestSelection />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/search" element={<Search />} />
+          <Route path="/interests" element={<InterestSelection />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/post/:postId" element={<PostDetail />} />
 
               {/* Placeholder routes */}
               <Route
