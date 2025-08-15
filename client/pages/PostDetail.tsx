@@ -310,8 +310,13 @@ export default function PostDetail() {
           />
         )}
 
-        {/* Comment Card */}
-        <AnimatedCard
+        {/* Comment Card with Long Press */}
+        <LongPressContextMenu
+          isComment={true}
+          isOwnContent={comment.isOp}
+          onAction={(action) => console.log(`Action: ${action} on comment ${comment.id}`)}
+        >
+          <AnimatedCard
           variant="hover-lift"
           className={`
             border border-wireframe-border transition-all duration-300
@@ -476,7 +481,8 @@ export default function PostDetail() {
               Report
             </Button>
           </div>
-        </AnimatedCard>
+          </AnimatedCard>
+        </LongPressContextMenu>
 
         {/* Collapsed Thread Indicator */}
         {hasReplies && comment.isCollapsed && (
