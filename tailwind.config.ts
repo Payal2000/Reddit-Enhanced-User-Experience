@@ -57,6 +57,23 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        reddit: {
+          orange: "hsl(var(--reddit-orange))",
+        },
+        wireframe: {
+          bg: "hsl(var(--wireframe-bg))",
+          border: "hsl(var(--wireframe-border))",
+          text: {
+            primary: "hsl(var(--wireframe-text-primary))",
+            secondary: "hsl(var(--wireframe-text-secondary))",
+            muted: "hsl(var(--wireframe-text-muted))",
+          },
+          surface: {
+            primary: "hsl(var(--wireframe-surface-primary))",
+            secondary: "hsl(var(--wireframe-surface-secondary))",
+            hover: "hsl(var(--wireframe-surface-hover))",
+          },
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
