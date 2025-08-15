@@ -29,10 +29,10 @@ export default function App() {
             </a>
             <Routes>
               <Route path="/" element={<Onboarding />} />
-          <Route path="/interests" element={<InterestSelection />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/post/:postId" element={<PostDetail />} />
+              <Route path="/interests" element={<InterestSelection />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/post/:postId" element={<PostDetail />} />
 
               {/* Placeholder routes */}
               <Route
