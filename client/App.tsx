@@ -3,6 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AccessibilityProvider } from "@/context/AccessibilityContext";
+import AccessibilityToolbar from "@/components/AccessibilityToolbar";
 import Onboarding from "./pages/Onboarding";
 import InterestSelection from "./pages/InterestSelection";
 import Home from "./pages/Home";
@@ -15,10 +17,19 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+    <AccessibilityProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          {/* Skip link for keyboard navigation */}
+          <a
+            href="#main-content"
+            className="skip-link"
+            tabIndex={1}
+          >
+            Skip to main content
+          </a>
         <Routes>
           <Route path="/" element={<Onboarding />} />
           <Route path="/interests" element={<InterestSelection />} />
@@ -103,9 +114,13 @@ export default function App() {
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+          </Routes>
+
+          {/* Accessibility Toolbar */}
+          <AccessibilityToolbar />
+        </BrowserRouter>
+      </TooltipProvider>
+    </AccessibilityProvider>
   </QueryClientProvider>
   );
 }
