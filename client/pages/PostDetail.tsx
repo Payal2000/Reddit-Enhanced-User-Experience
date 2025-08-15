@@ -282,8 +282,8 @@ export default function PostDetail() {
     const hasReplies = comment.replies.length > 0;
     const isDeepThread = comment.depth >= 3;
 
-    // Don't render collapsed deep threads
-    if (comment.isCollapsed && comment.depth > 0) {
+    // Don't render collapsed deep threads unless they're being expanded
+    if (comment.isCollapsed && comment.depth >= 3) {
       return null;
     }
 
@@ -295,8 +295,16 @@ export default function PostDetail() {
         {/* Thread Connector */}
         {comment.depth > 0 && (
           <div
-            className={`absolute left-4 top-0 bottom-0 w-0.5 ${getThreadConnectorColor(comment.depth - 1)} border-l-2`}
-            style={{ left: `${comment.depth * 20 - 12}px` }}
+            className={`absolute top-0 bottom-0 w-1 ${getThreadConnectorColor(comment.depth - 1)} border-l-4 opacity-60`}
+            style={{ left: `${comment.depth * 20 - 16}px` }}
+          />
+        )}
+
+        {/* Thread Connection Dot */}
+        {comment.depth > 0 && (
+          <div
+            className={`absolute w-3 h-3 rounded-full ${getThreadConnectorColor(comment.depth - 1).replace('border-', 'bg-')} opacity-80`}
+            style={{ left: `${comment.depth * 20 - 20}px`, top: '20px' }}
           />
         )}
 
@@ -310,7 +318,7 @@ export default function PostDetail() {
                 ? "bg-wireframe-surface-primary p-4 mb-4 rounded-lg shadow-sm"
                 : "bg-wireframe-surface-secondary p-3 mb-2 ml-8 rounded-md"
             }
-            ${isFocused ? "ring-2 ring-reddit-orange shadow-lg" : ""}
+            ${isFocused ? "ring-2 ring-reddit-orange shadow-lg bg-orange-50" : ""}
           `}
           style={{
             marginLeft: comment.depth > 0 ? `${comment.depth * 20}px` : "0",
