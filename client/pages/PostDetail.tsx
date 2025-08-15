@@ -453,14 +453,19 @@ export default function PostDetail() {
               Reply
             </Button>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-6 px-2 text-xs hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
-            >
-              <Award className="w-3 h-3 mr-1" />
-              Award
-            </Button>
+            <AwardsModal
+              commentId={comment.id}
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 px-2 text-xs hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
+                >
+                  <Award className="w-3 h-3 mr-1" />
+                  Award
+                </Button>
+              }
+            />
 
             <Button
               variant="ghost"
@@ -626,6 +631,20 @@ export default function PostDetail() {
                   <Share className="w-4 h-4 mr-1" />
                   Share
                 </Button>
+
+                <AwardsModal
+                  postId={mockPost.id}
+                  trigger={
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="hover:bg-yellow-50 hover:text-yellow-600 transition-colors"
+                    >
+                      <Award className="w-4 h-4 mr-1" />
+                      Award
+                    </Button>
+                  }
+                />
 
                 <Button
                   variant="ghost"
