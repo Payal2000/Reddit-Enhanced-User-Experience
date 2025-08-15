@@ -64,45 +64,6 @@ export default function Onboarding() {
           </Button>
         </div>
 
-        {/* Demo Links */}
-        <div className="text-center mt-6 space-y-3">
-          <Button
-            variant="outline"
-            className="w-full h-10 border-2 border-reddit-orange text-reddit-orange hover:bg-reddit-orange hover:text-white transition-colors"
-            asChild
-          >
-            <Link to="/post/1">
-              <MessageCircle className="w-4 h-4 mr-2" />
-              Enhanced Comments & Awards
-            </Link>
-          </Button>
-
-          <div className="grid grid-cols-2 gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white"
-              asChild
-            >
-              <Link to="/filters">
-                <Filter className="w-3 h-3 mr-1" />
-                Feed Filters
-              </Link>
-            </Button>
-
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-yellow-500 text-yellow-600 hover:bg-yellow-500 hover:text-white"
-              asChild
-            >
-              <Link to="/favorites">
-                <Star className="w-3 h-3 mr-1" />
-                Favorites
-              </Link>
-            </Button>
-          </div>
-        </div>
 
         {/* Login Link */}
         <div className="text-center">
