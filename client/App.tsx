@@ -10,6 +10,8 @@ import InterestSelection from "./pages/InterestSelection";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
 import PostDetail from "./pages/PostDetail";
+import FeedFilters from "./pages/FeedFilters";
+import Favorites from "./pages/Favorites";
 import Placeholder from "./pages/Placeholder";
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +35,8 @@ export default function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/search" element={<Search />} />
               <Route path="/post/:postId" element={<PostDetail />} />
+              <Route path="/filters" element={<FeedFilters />} />
+              <Route path="/favorites" element={<Favorites />} />
 
               {/* Placeholder routes */}
               <Route
