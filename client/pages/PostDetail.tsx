@@ -474,21 +474,29 @@ export default function PostDetail() {
         {/* Collapsed Thread Indicator */}
         {hasReplies && comment.isCollapsed && (
           <div
-            className="ml-8 mb-2 p-2 bg-wireframe-surface-hover rounded border border-dashed border-wireframe-border cursor-pointer hover:bg-wireframe-surface-secondary transition-colors"
+            className="ml-8 mb-2 p-3 bg-gradient-to-r from-wireframe-surface-hover to-wireframe-surface-secondary rounded-lg border border-dashed border-wireframe-border cursor-pointer hover:bg-gradient-to-r hover:from-wireframe-surface-secondary hover:to-wireframe-surface-hover transition-all duration-300 hover:shadow-md"
             onClick={() => toggleCommentCollapse(comment.id)}
             style={{ marginLeft: `${(comment.depth + 1) * 20}px` }}
           >
-            <div className="flex items-center space-x-2 text-xs text-wireframe-text-muted">
-              <ChevronRight className="w-3 h-3" />
-              <span>
-                {comment.replies.length} more{" "}
-                {comment.replies.length === 1 ? "reply" : "replies"}
-              </span>
-              {isDeepThread && (
-                <Badge variant="outline" className="text-xs">
-                  Deep thread
-                </Badge>
-              )}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 text-sm text-wireframe-text-secondary">
+                <ChevronRight className="w-4 h-4" />
+                <span className="font-medium">
+                  {comment.replies.length} more{" "}
+                  {comment.replies.length === 1 ? "reply" : "replies"}
+                </span>
+                {isDeepThread && (
+                  <Badge variant="outline" className="text-xs bg-blue-50 text-blue-700">
+                    Deep thread
+                  </Badge>
+                )}
+              </div>
+              <Button variant="ghost" size="sm" className="text-xs h-6 px-2">
+                Expand
+              </Button>
+            </div>
+            <div className="mt-1 text-xs text-wireframe-text-muted">
+              Click to view nested discussion
             </div>
           </div>
         )}
