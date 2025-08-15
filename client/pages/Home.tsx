@@ -302,9 +302,11 @@ export default function Home() {
                       </div>
 
                       {/* Post Title */}
-                      <h2 className="text-lg font-medium text-wireframe-text-primary mb-3 leading-tight hover:text-reddit-orange transition-colors cursor-pointer">
-                        {post.title}
-                      </h2>
+                      <Link to={`/post/${post.id}`}>
+                        <h2 className="text-lg font-medium text-wireframe-text-primary mb-3 leading-tight hover:text-reddit-orange transition-colors cursor-pointer">
+                          {post.title}
+                        </h2>
+                      </Link>
 
                       {/* Enhanced AI Summary Card */}
                       <div className="bg-gradient-to-r from-wireframe-surface-secondary to-wireframe-surface-hover p-4 rounded-lg mb-4 border-l-4 border-reddit-orange">
@@ -375,9 +377,12 @@ export default function Home() {
                           variant="ghost"
                           size="sm"
                           className="h-8 px-2 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                          asChild
                         >
-                          <MessageCircle className="w-4 h-4 mr-1" />
-                          {formatNumber(post.comments)} Comments
+                          <Link to={`/post/${post.id}`}>
+                            <MessageCircle className="w-4 h-4 mr-1" />
+                            {formatNumber(post.comments)} Comments
+                          </Link>
                         </Button>
                         <Button
                           variant="ghost"
