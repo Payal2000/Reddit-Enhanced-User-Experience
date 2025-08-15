@@ -451,7 +451,7 @@ export default function Home() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 md:ml-0 p-4">
+        <main id="main-content" className="flex-1 md:ml-0 p-4">
           <div className="max-w-2xl">
             {/* Feed Header */}
             <div className="mb-6">
