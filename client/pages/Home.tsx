@@ -606,6 +606,57 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Feature Showcase */}
+            <Card className="mb-6 p-4 border border-wireframe-border bg-gradient-to-r from-wireframe-surface-primary to-wireframe-surface-secondary">
+              <div className="flex items-center space-x-2 mb-3">
+                <Sparkles className="w-5 h-5 text-reddit-orange" />
+                <h3 className="font-semibold text-wireframe-text-primary">New Reddit Features</h3>
+                <Badge variant="secondary" className="text-xs bg-reddit-orange text-white">
+                  Enhanced
+                </Badge>
+              </div>
+              <p className="text-sm text-wireframe-text-secondary mb-4">
+                Experience the latest Reddit enhancements with improved interactions, better filtering, and personalized features.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-reddit-orange text-reddit-orange hover:bg-reddit-orange hover:text-white transition-colors"
+                  asChild
+                >
+                  <Link to="/post/1">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Enhanced Comments
+                  </Link>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white transition-colors"
+                  asChild
+                >
+                  <Link to="/filters">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Advanced Filters
+                  </Link>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-yellow-500 text-yellow-600 hover:bg-yellow-500 hover:text-white transition-colors"
+                  asChild
+                >
+                  <Link to="/favorites">
+                    <Star className="w-4 h-4 mr-2" />
+                    Favorites Hub
+                  </Link>
+                </Button>
+              </div>
+            </Card>
+
             {/* Clustered Posts */}
             {renderPostsByCluster()}
           </div>
