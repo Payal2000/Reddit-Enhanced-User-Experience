@@ -244,13 +244,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **React Query** - For excellent data fetching patterns
 - **Vite** - For the fast build tool
 
-## 📞 Support
-
-If you have any questions or need help:
-- Open an issue on GitHub
-- Check the documentation
-- Review the code examples
-
----
-
-**Built with ❤️ using modern web technologies**
+nologies**
