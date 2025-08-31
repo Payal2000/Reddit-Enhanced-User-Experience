@@ -244,4 +244,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **React Query** - For excellent data fetching patterns
 - **Vite** - For the fast build tool
 
-nologies**
+
